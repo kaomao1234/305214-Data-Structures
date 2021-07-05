@@ -1,6 +1,5 @@
-import matplotlib as plt
-x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-y = [0.0, 0.84, 0.91, 0.14, -0.76, -0.96, -0.28, 0.66, 0.99, 0.41, -0.54]
-# เริ่มวาดกราฟ
-plt.plot(x,y) # คำสั่งวาดกราฟ
-plt.show() # คำสั่งให้แสดง
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+plt.axis([0, 6, 0, 20])
+plt.show()

@@ -108,4 +108,3 @@ if __name__ == '__main__':
         print('Selection sort takes {:.5} seconds to process.'.format((time.time()-start3)-1))
         print(arr_var1.get_array)
         f.close()
-        

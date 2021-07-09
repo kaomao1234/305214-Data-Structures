@@ -55,9 +55,7 @@ class Array:
             # todo สลับตำแหน่ง ตัวที่ ex(ตัวที่ใช้เปรียบเทียบ) และ ตัวที่ min_idx(ค่าน้อยที่สุด)        
             self.get_array[ex],self.get_array[min_idx] = self.get_array[min_idx],self.get_array[ex]
             
-    @property
-    def quick_sort(self):
-        pass
+
     #! Insert Method
     def insert_ele(self, idx: int, ele):
         imp_array = self.get_array[idx::]

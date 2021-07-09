@@ -39,11 +39,11 @@ class Array:
                 # todo เปรียบเทียบระหว่าง j(สมาชิกตัวแรกที่อยู่ทางซ้ายของ ins_ele โดยนับจากตัวสุดท้าย) มากกว่า ins_ele
                 if j > ins_ele:
                     #todo สลับตำแหน่ง เริ่มสลับตำแหน่งที่ insele อยู่ 
-                    self.get_array[self.get_array.index(ins_ele)],self.get_array[self.get_array.index(j)]  = j,ins_ele
-
+                    self.get_array[self.get_array.index(ins_ele)],self.get_array[self.get_array.index(j)]  = j,ins_ele 
+           
     #! Selection sort method
     @property
-    def seletion_sort(self):
+    def selection_sort(self):
         for ex in range(len(self.get_array)):
             # todo minx_idx คือ ตัวแปรที่หาจำนวนที่น้อยที่สุด โดย เริ่มต้นที่ตำแหน่งตัวเอง
             min_idx = ex
@@ -52,10 +52,12 @@ class Array:
                # todo เปรียบระหว่าง ตัวที่ min idx มากกกว่า ตัวที่ lt หรือไม่
                 if self.get_array[min_idx] > self.get_array[lt]:
                     min_idx = lt  # todo ให้ min_idx มีค่าเท่ากับ lt เผื่อใช้หาตัวแหน่งที่น้อยกว่าในรอบถัดไป
-            # todo สลับตำแหน่ง ตัวที่ ex(ตัวที่ใช้เปรียบเทียบ) และ ตัวที่ min_idx(มีค่าน้อยที่สุด)        
+            # todo สลับตำแหน่ง ตัวที่ ex(ตัวที่ใช้เปรียบเทียบ) และ ตัวที่ min_idx(ค่าน้อยที่สุด)        
             self.get_array[ex],self.get_array[min_idx] = self.get_array[min_idx],self.get_array[ex]
             
-                   
+    @property
+    def quick_sort(self):
+        pass
     #! Insert Method
     def insert_ele(self, idx: int, ele):
         imp_array = self.get_array[idx::]
@@ -106,5 +108,6 @@ if __name__ == '__main__':
         arr_var3.seletion_sort
         time.sleep(1)
         print('Selection sort takes {:.5} seconds to process.'.format((time.time()-start3)-1))
+        time.sleep(1)
         print(arr_var1.get_array)
         f.close()

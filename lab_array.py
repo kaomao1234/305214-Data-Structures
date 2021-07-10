@@ -38,7 +38,7 @@ class Array:
             for j in left_ele[::-1]:
                 # todo เปรียบเทียบระหว่าง j(สมาชิกตัวแรกที่อยู่ทางซ้ายของ ins_ele โดยนับจากตัวสุดท้าย) มากกว่า ins_ele
                 if j > ins_ele:
-                    #todo สลับตำแหน่ง เริ่มสลับตำแหน่งที่ insele อยู่ 
+                    #todo สลับตำแหน่ง เริ่มสลับตำแหน่ง
                     self.get_array[self.get_array.index(ins_ele)],self.get_array[self.get_array.index(j)]  = j,ins_ele 
            
     #! Selection sort method
@@ -55,17 +55,20 @@ class Array:
             # todo สลับตำแหน่ง ตัวที่ ex(ตัวที่ใช้เปรียบเทียบ) และ ตัวที่ min_idx(ค่าน้อยที่สุด)        
             self.get_array[ex],self.get_array[min_idx] = self.get_array[min_idx],self.get_array[ex]
             
-
     #! Insert Method
     def insert_ele(self, idx: int, ele):
-        imp_array = self.get_array[idx::]
-        self.get_array = self.get_array[0:idx+1]
-        self.get_array[idx] = ele
-        self.get_array = self.get_array+imp_array
+        #todo imp_var เก็บสมาชิค array ตั้งแต่ idx ถึง ตัวสุดท้าย 
+        imp_var = self.get_array[idx:]
+        #todo ให้ self.get_array เก็บสมาชิกตั้งแต่ 0 ถึง idx-1 แทน
+        self.get_array = self.get_array[:idx]
+        #todo เพิ่ม ele เข้าต่อท้ายใน self.get_array
+        self.get_array.append(ele)
+        #todo รวม self.get_array กับ imp_var เข้าด้วยกัน
+        self.get_array = self.get_array+imp_var
 
     #! Delete Method
     def delete_ele(self, ele):
-        self.get_array.remove(ele)
+        self.get_array = list(filter(lambda s : s != ele,self.get_array))
 
     #! Search Method
     def search_ele(self, ele, start=0):
@@ -87,25 +90,8 @@ class Array:
 if __name__ == '__main__':
     with open('data.txt', 'r') as f:
         read_num = f.read().split(' ')[:12]
-        r1 = read_num
-        r2 = read_num
-        r3 = read_num
-        arr_var1 = Array(list(map(lambda s: int(s),r1)))
-        arr_var2 = Array(list(map(lambda s : int(s),r2)))
-        arr_var3 = Array(list(map(lambda s: int(s),r3)))
-        print('Unsort : {}'.format(arr_var1.get_array))
-        start1 = time.time()
-        arr_var1.bubble_sort
-        time.sleep(1)
-        print('Bubble sort takes {:.5} seconds to process.'.format((time.time()-start1)-1))
-        start2 = time.time()
-        arr_var2.insertion_sort
-        time.sleep(1)
-        print('Insertion sort takes {:.5} seconds to process.'.format((time.time()-start2)-1))
-        start3 = time.time()
-        arr_var3.seletion_sort
-        time.sleep(1)
-        print('Selection sort takes {:.5} seconds to process.'.format((time.time()-start3)-1))
-        time.sleep(1)
-        print(arr_var1.get_array)
-        f.close()
+        num_lst = list(map(lambda s :int(s),read_num))
+        print(f'Unort : {read_num}')
+        arr_ins =  Array(num_lst)
+        arr_ins.insertion_sort
+        print('Sorted :',arr_ins.get_array)

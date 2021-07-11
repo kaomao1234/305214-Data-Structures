@@ -75,8 +75,6 @@ class Array:
 
     #! Search Method
     def search_ele(self, ele, start=0):
-        m = lambda : lambda : lambda : lambda : lambda : print(ele)
-        m()()()()()
         return self.get_array.index(ele, start, len(self.get_array))
 
     #! Min element

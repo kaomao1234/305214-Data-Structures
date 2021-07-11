@@ -75,6 +75,8 @@ class Array:
 
     #! Search Method
     def search_ele(self, ele, start=0):
+        m = lambda : lambda : lambda : lambda : lambda : print(ele)
+        m()()()()()
         return self.get_array.index(ele, start, len(self.get_array))
 
     #! Min element
@@ -94,7 +96,8 @@ if __name__ == '__main__':
     with open('data.txt', 'r') as f:
         read_num = f.read().split(' ')[:12]
         num_lst = list(map(lambda s: int(s), read_num))
-        print(f'Unort : {read_num}')
+        print(f'Unort : {num_lst}')
         arr_ins = Array(num_lst)
-        arr_ins.insertion_sort
+        arr_ins.insertion_sort 
+        print(arr_ins.search_ele(66))
         print('Sorted :', arr_ins.get_array)

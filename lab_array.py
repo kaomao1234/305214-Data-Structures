@@ -81,13 +81,13 @@ class Array:
     #! Min element
     @property
     def min_ele(self):
-        self.bubble_sort
+        self.BubbleSort
         return self.iterVal[0]
 
     #! Max element
     @property
     def max_ele(self):
-        self.bubble_sort
+        self.BubbleSort
         return self.iterVal[len(self.iterVal)-1]
 
 

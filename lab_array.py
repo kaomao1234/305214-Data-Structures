@@ -34,7 +34,7 @@ class Array:
         for i in range(1, len(self.iterVal)):
             # todo comparator คือตัวแปรที่ใช้สำหรับการ insert โดยให้เริ่มต้นตำแหน่งที่ 1 เสมอ
             comparator = self.iterVal[i]
-            # todo reversed(self.iterVal[:i]) คือ reversed สมาชิกที่อยู่ใน array
+            # todo self.iterVal[i::-1] คือ reversed สมาชิกที่อยู่ใน array
             for j  in self.iterVal[i::-1]:
                 # todo เปรียบเทียบระหว่าง j(สมาชิกตัวแรกที่อยู่ทางซ้ายของ comparator โดยนับจากตัวสุดท้าย) มากกว่า comparator
                 if j > comparator:

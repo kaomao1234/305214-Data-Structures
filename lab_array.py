@@ -35,10 +35,10 @@ class Array:
             # todo comparator คือตัวแปรที่ใช้สำหรับการ insert โดยให้เริ่มต้นตำแหน่งที่ 1 เสมอ
             comparator = self.iterVal[i]
             # todo self.iterVal[i::-1] คือ reversed สมาชิกที่อยู่ใน array
-            for j  in self.iterVal[i::-1]:
+            for j in self.iterVal[i::-1]:
                 # todo เปรียบเทียบระหว่าง j(สมาชิกตัวแรกที่อยู่ทางซ้ายของ comparator โดยนับจากตัวสุดท้าย) มากกว่า comparator
                 if j > comparator:
-                    # todo สลับตำแหน่ง เริ่มสลับตำแหน่ง
+                    # todo สลับตำแหน่ง 
                     self.iterVal[self.iterVal.index(
                         comparator)], self.iterVal[self.iterVal.index(j)] = j, comparator
 
@@ -56,7 +56,7 @@ class Array:
             # todo สลับตำแหน่ง ตัวที่ ex(ตัวที่ใช้เปรียบเทียบ) และ ตัวที่ min_idx(ค่าน้อยที่สุด)
             maxVal = self.iterVal[ex]
             minVal = self.iterVal[min_idx]
-            self.iterVal[ex], self.iterVal[min_idx] = minVal,maxVal
+            self.iterVal[ex], self.iterVal[min_idx] = minVal, maxVal
 
     #! Insert Method
     def insert_ele(self, idx: int, ele):

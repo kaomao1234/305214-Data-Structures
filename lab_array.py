@@ -98,5 +98,4 @@ if __name__ == '__main__':
         arr_ins = Array(num_lst)
         print(arr_ins.iterVal)
         arr_ins.BubbleSort
-        # print(arr_ins.search_ele(66))
         print(num_lst)

@@ -18,10 +18,10 @@ class Array:
                 # todo ถ้า ตำแหน่งที่ n มีค่ามากว่า n+1
                 if self.iterVal[j] > self.iterVal[j+1]:
                     # todo here_ele คือตัวแปรที่ n, next_ele คือตัวแปรที่ n+1
-                    here_ele, next_ele = self.iterVal[j], self.iterVal[j+1]
+                    maxVal, minVal = self.iterVal[j], self.iterVal[j+1]
                     # todo สลับสมาชิก
-                    self.iterVal[j] = next_ele
-                    self.iterVal[j+1] = here_ele
+                    self.iterVal[j] = minVal
+                    self.iterVal[j+1] = maxVal
                 # todo เมื่อไม่เข้าเงื่อนไขด้านบน
                 else:
                     stop += 1
@@ -99,4 +99,4 @@ if __name__ == '__main__':
         print(arr_ins.iterVal)
         arr_ins.BubbleSort
         # print(arr_ins.search_ele(66))
-        print(arr_ins.iterVal)
+        print(num_lst)

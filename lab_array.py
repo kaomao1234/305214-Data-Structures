@@ -38,7 +38,7 @@ class Array:
             for j in self.iterVal[i::-1]:
                 # todo เปรียบเทียบระหว่าง j(สมาชิกตัวแรกที่อยู่ทางซ้ายของ comparator โดยนับจากตัวสุดท้าย) มากกว่า comparator
                 if j > comparator:
-                    # todo สลับตำแหน่ง 
+                    # todo สลับตำแหน่ง
                     self.iterVal[self.iterVal.index(
                         comparator)], self.iterVal[self.iterVal.index(j)] = j, comparator
 

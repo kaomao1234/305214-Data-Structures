@@ -15,8 +15,9 @@ def fibonance(num: int, result=[], start=0):
     if len(result) < 2:
         result.append(start)
         fibonance(num, result, start+1)
-    if len(result) == num:
+    elif len(result) == num:
         return result
+    print(result)
     result.append(result[start-2]+result[start-1])
     return fibonance(num, result)
 
@@ -30,7 +31,5 @@ def sumArray(array: list, idx=0):
 if __name__ == '__main__':
     # print(factorial(10))
     # print(powFunc(4,3))
-    # print(fibonance(10))
+    print(fibonance(10))
     # print(sumArray([4, 5, 3, 7, 8, 9]))
-    print(3) == 3
-    print(3)

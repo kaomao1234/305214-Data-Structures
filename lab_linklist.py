@@ -27,7 +27,8 @@ class SLList:
         return self.subAlg(self.first, idx, end)
 
     def node2array(self):
-        return self.node2arrayAlg(self.first)
+        arr = []
+        return self.node2arrayAlg(self.first, arr)
 
     def array2node(self, arrNode: list, head=None, var=1):
         if head == None:
@@ -36,7 +37,7 @@ class SLList:
         elif var == len(arrNode):
             return head
         else:
-            self.addNode(arrNode[var], head)
+            self.addAlg(arrNode[var], head)
             return self.array2node(arrNode, head, var+1)
 
     def insertNode(self, idx: int, data):
@@ -47,7 +48,7 @@ class SLList:
             return ptp
         p = self.subNode(0, idx-1)
         ptp.next = self.subNode(idx)
-        self.addNode(ptp, p)
+        self.addAlg(ptp, p)
         return p
 
     def delNode(self, x):
@@ -101,12 +102,25 @@ class SLList:
             self.addAlg(slst.data, newNode)
             return self.subAlg(slst.next, idx, end, newNode, start+1)
 
-    def node2arrayAlg(self, slist: Node, arrNode=[]):
+    def node2arrayAlg(self, slist: Node, arrNode):
         if slist == None:
             return arrNode
         else:
             arrNode.append(slist.data)
             return self.node2arrayAlg(slist.next, arrNode)
+
+    def insertV2(self, idx: int, x):
+        m = self.node2array()
+        imp_var = m[idx:]
+        m = m[:idx]
+        m.append(x)
+        m = m+imp_var
+        self.first = self.array2node(m)
+
+    def delV2(self, x):
+        m = self.node2array()
+        m = [i for i in m if i != x]
+        self.first = self.array2node(m)
 
 
 if __name__ == '__main__':
@@ -115,5 +129,6 @@ if __name__ == '__main__':
     SinglyObj.addNode('C')
     SinglyObj.addNode('M')
     SinglyObj.addNode('P')
-    m = SinglyObj.subNode(0, 1)
-    SinglyObj.showAlg(m)
+    SinglyObj.insertV2(1, 'Z')
+    SinglyObj.delV2('M')
+    SinglyObj.show()

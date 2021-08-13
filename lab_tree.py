@@ -11,4 +11,3 @@ class Node:
 
 if __name__ == '__main__':
     obj = Node([4,6,3,1,5,8,9]) 
-    c(obj.array[0])

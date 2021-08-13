@@ -119,8 +119,17 @@ class SLList:
 
     def delV2(self, x):
         m = self.node2array()
-        m = [i for i in m if i != x]
+        m = self.delAlgV2(x, m, [])
         self.first = self.array2node(m)
+
+    def delAlgV2(self, x, arrNode: list, newArr: list, var=0):
+        if var == len(arrNode):
+            return newArr
+        elif arrNode[var] != x:
+            newArr.append(arrNode[var])
+            return self.delAlgV2(x, arrNode, newArr, var+1)
+        else:
+            return self.delAlgV2(x, arrNode, newArr, var+1)
 
 
 if __name__ == '__main__':

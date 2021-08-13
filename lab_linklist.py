@@ -5,82 +5,115 @@ class Node:
 
 
 class SLList:
-    nodeIdx = 0
 
     def __init__(self):
         self.first = None
 
-    def addData(self, data):
-        self.addNode(data, self.first)
+    def addNode(self, data):
+        self.addAlg(data, self.first)
 
-    def addNode(self, data, slist):
+    def search(self, ele):
+        return self.searchalg(ele, self.first)
+
+    def show(self):
+        self.showAlg(self.first)
+
+    def lenNode(self):
+        return self.lenAlg(self.first)
+
+    def subNode(self, idx: int, end=None):
+        if end == None:
+            end = self.lenNode()
+        return self.subAlg(self.first, idx, end)
+
+    def node2array(self):
+        return self.node2arrayAlg(self.first)
+
+    def array2node(self, arrNode: list, head=None, var=1):
+        if head == None:
+            head = Node(arrNode[0])
+            return self.array2node(arrNode, head)
+        elif var == len(arrNode):
+            return head
+        else:
+            self.addNode(arrNode[var], head)
+            return self.array2node(arrNode, head, var+1)
+
+    def insertNode(self, idx: int, data):
+        ptp = Node(data)
+        if idx-1 < 0:
+            idx = 0
+            ptp.next = self.subNode(idx)
+            return ptp
+        p = self.subNode(0, idx-1)
+        ptp.next = self.subNode(idx)
+        self.addNode(ptp, p)
+        return p
+
+    def delNode(self, x):
+        ptr = self.search(x)
+        if ptr-1 <= 0:
+            after = self.subNode(ptr+1)
+            self.first = after
+        else:
+            back = self.subNode(0, ptr-1)
+            after = self.subNode(ptr+1)
+            self.addNode(after, back)
+            self.first = back
+
+    def lenAlg(self, slist: Node, var=0):
+        if slist == None:
+            return var
+        else:
+            return self.lenAlg(slist.next, var+1)
+
+    def showAlg(self, slist: Node):
+        if slist == None:
+            return
+        print(slist.data, ' --> ', end='')
+        self.showAlg(slist.next)
+
+    def searchAlg(self, data, slist: Node, start=0):
+        if slist == None:
+            return False
+        elif slist.data == data:
+            return start
+        return self.searchAlg(data, slist.next, start+1)
+
+    def addAlg(self, data, slist: Node):
         if slist.next == None:
             if type(data) == type(Node()):
                 slist.next = data
             else:
                 slist.next = Node(data)
         else:
-            self.addNode(data, slist.next)
+            self.addAlg(data, slist.next)
 
-    def search(self, data, slist: Node, end=0, start=0):
+    def subAlg(self, slst: Node, idx: int, end=None, newNode=None, start=0):
+        if start == idx:  # todo กำหนดจุดเริ่มต้นของNode โดยถ้า start == idx ให้ สร้าง Node ใหม่ ที่เก็บข้อมูลของ Node ที่ idx
+            newNode = Node(slst.data)
+            return self.subAlg(slst.next, idx, end, newNode, start+1)
+        elif start < idx:  # todo ถ้า idx > start ให้start+1 และเลื่อนNodeต่อไปจนกว่าจะถึง ที่idx
+            return self.subAlg(slst.next, idx, end, newNode, start+1)
+        elif start == end:  # todo เมื่อstart == end ส่งค่า Nodeใหม่ กลับมา
+            return newNode
+        elif start < end:  # todo ถ้า end > start ให้start+1 และเลื่อนNodeต่อไปจนกว่าจะถึง ที่end และ ทำการต่อ Node ของ Node ใหม่ ด้วยข้อมูลของ slst.data
+            self.addAlg(slst.data, newNode)
+            return self.subAlg(slst.next, idx, end, newNode, start+1)
+
+    def node2arrayAlg(self, slist: Node, arrNode=[]):
         if slist == None:
-            return
-        elif slist.data == data:
-            return True
-        return self.search(data, slist.next, end, start+1)
-
-    def showNode(self, slist: Node):
-        if slist == None:
-            return
-        print(slist.data, ' --> ', end='')
-        self.showNode(slist.next)
-
-    def lenghtNode(self, slist=False, var=0):
-        if slist == False:
-            self.lenghtNode(self.first, var)
-        elif slist == None:
-            return var
+            return arrNode
         else:
-            self.lenghtNode(slist.next, var)+1
-
-    def IndexToEnd(self, idx: int, slist=False, end=0, NewNode=None):
-        if slist == False:
-            return self.IndexToEnd(idx, self.first, end, NewNode)
-        elif idx == end:
-            return NewNode
-        else:
-            NewNode = slist
-            return self.IndexToEnd(idx, slist.next, end+1, NewNode.next)
-
-    def ZeroToIndex(self, NewNode: Node, idx: int, slist=False, start=0):
-        if slist == False:
-            self.ZeroToIndex(NewNode, idx, self.first.next, start)
-        elif idx == start:
-            return
-        else:
-            self.addNode(slist.data, NewNode)
-            self.ZeroToIndex(NewNode, idx, slist.next, start+1)
-
-    def insertNode(self, idx: int, data):
-        ptr = self.IndexToEnd(idx)
-        ptp = Node(self.first.data)
-        self.ZeroToIndex(ptp, idx)
-        p = Node(data)
-        p.next = ptr
-        self.addNode(p, ptp)
-        self.showNode(ptr)
-
-    def delNode(self):
-        pass
+            arrNode.append(slist.data)
+            return self.node2arrayAlg(slist.next, arrNode)
 
 
 if __name__ == '__main__':
-    cList = SLList()
-    cList.first = Node('A')
-    cList.addData('C')
-    cList.addData('M')
-    cList.addData('P')
-    # cList.insertNode(1,'U')
-    print()
-    # cList.showNode(cList.first)
-    # cList.showNode(cList.first)
+    SinglyObj = SLList()
+    SinglyObj.first = Node('A')
+    SinglyObj.addNode('C')
+    SinglyObj.addNode('M')
+    SinglyObj.addNode('P')
+    m = SinglyObj.subNode(0, 1)
+    SinglyObj.showAlg(m)

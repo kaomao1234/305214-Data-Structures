@@ -21,7 +21,6 @@ class SLList:
     def lenNode(self):
         return self.lenAlg(self.first)
 
-
     def push(self, new_data):
         if type(Node()) == new_data:
             new_data.next = self.first
@@ -31,12 +30,31 @@ class SLList:
             new_data.next = self.first
             self.head = new_data
 
-    def insertAfter(self, idx, data):
-        prev_node = None
+    def insert(self, idx, data):
+        st_toidx = self.headtoIdx(idx, self.first, Node())
+        prev_node = self.idxtoLast(idx, self.first)
         new_node = Node(data)
-        new_node.next = prev_node.next
-        prev_node.next = new_node
+        if idx > 0:
+            st_toidx = st_toidx.next
+            new_node.next = prev_node
+            self.addAlg(new_node, st_toidx)
+            self.showAlg(st_toidx)
+        elif idx == 0:
+            new_node.next = prev_node
+            self.showAlg(new_node)
 
+    def headtoIdx(self, idx, head: Node, newNode: Node):
+        if idx == 0:
+            return newNode
+        else:
+            self.addAlg(head.data, newNode)
+            return self.headtoIdx(idx-1, head.next, newNode)
+
+    def idxtoLast(self, idx, head: Node):
+        if idx == 0:
+            return head
+        else:
+            return self.idxtoLast(idx-1, head.next)
 
     def lenAlg(self, slist: Node, var=0):
         if slist == None:
@@ -67,15 +85,10 @@ class SLList:
             self.addAlg(data, slist.next)
 
 
-
 if __name__ == '__main__':
     SinglyObj = SLList()
     SinglyObj.first = Node('A')
     SinglyObj.addNode('C')
     SinglyObj.addNode('M')
     SinglyObj.addNode('P')
-    print('Default : ', ' --> '.join(SinglyObj.node2array()))
-    SinglyObj.insertV2(1, 'Z')
-    print('Insert Z into index 1 : ', ' --> '.join(SinglyObj.node2array()))
-    SinglyObj.delV2('M')
-    print('Delete M : ', ' --> '.join(SinglyObj.node2array()))
+    SinglyObj.insert(4, 'X')

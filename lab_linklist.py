@@ -61,7 +61,7 @@ class SLList:
             return self.delNode(key, slist.next, new_node)
         else:
             return self.delNode(key, slist.next, new_node)
-
+    
     # todo function ที่เก็บNode ตั้งแต่ Node แรก ถึง Node ที่ idx
     def headtoIdx(self, idx, head: Node, newNode: Node):
         if idx == 0:
@@ -113,5 +113,4 @@ if __name__ == '__main__':
     SinglyObj.add('M')
     SinglyObj.add('P')
     # SinglyObj.insert(0, 'X')
-    SinglyObj.delete('P')
     SinglyObj.show()

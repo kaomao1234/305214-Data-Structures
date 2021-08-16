@@ -9,17 +9,21 @@ class SLList:
     def __init__(self):
         self.first = None
 
-    def addNode(self, data):
-        self.addAlg(data, self.first)
+    def add(self, data):
+        self.addNode(data, self.first)
 
     def search(self, ele):
-        return self.searchalg(ele, self.first)
+        return self.searchNode(ele, self.first)
 
     def show(self):
-        self.showAlg(self.first)
+        self.showNode(self.first)
 
-    def lenNode(self):
-        return self.lenAlg(self.first)
+    def len(self):
+        return self.lenNode(self.first)
+
+    def delete(self, key):
+        self.delNode(key, self.first)
+        self.show()
 
     def push(self, new_data):
         if type(Node()) == new_data:
@@ -37,17 +41,53 @@ class SLList:
         if idx > 0:
             st_toidx = st_toidx.next
             new_node.next = prev_node
-            self.addAlg(new_node, st_toidx)
-            self.showAlg(st_toidx)
+            self.addNode(new_node, st_toidx)
+            self.showNode(st_toidx)
         elif idx == 0:
             new_node.next = prev_node
-            self.showAlg(new_node)
+            self.showNode(new_node)
+
+    def delNode(self, key, slist: Node):
+        if slist.data == key:
+            slist = slist.next
+            self.showNode(slist)
+        else:
+            self.delNode(key, slist.next)
+
+    def deleteNode(self, key):
+
+        # Store head node
+        temp = self.first
+
+        # If head node itself holds the key to be deleted
+        if (temp is not None):
+            if (temp.data == key):
+                self.first = temp.next
+                temp = None
+                return
+
+        # Search for the key to be deleted, keep track of the
+        # previous node as we need to change 'prev.next'
+        while(temp is not None):
+            if temp.data == key:
+                break
+            prev = temp
+            temp = temp.next
+
+        # if key was not present in linked list
+        if(temp == None):
+            return
+
+        # Unlink the node from linked list
+        prev.next = temp.next
+
+        temp = None
 
     def headtoIdx(self, idx, head: Node, newNode: Node):
         if idx == 0:
             return newNode
         else:
-            self.addAlg(head.data, newNode)
+            self.addNode(head.data, newNode)
             return self.headtoIdx(idx-1, head.next, newNode)
 
     def idxtoLast(self, idx, head: Node):
@@ -56,39 +96,41 @@ class SLList:
         else:
             return self.idxtoLast(idx-1, head.next)
 
-    def lenAlg(self, slist: Node, var=0):
+    def lenNode(self, slist: Node, var=0):
         if slist == None:
             return var
         else:
-            return self.lenAlg(slist.next, var+1)
+            return self.lenNode(slist.next, var+1)
 
-    def showAlg(self, slist: Node):
+    def showNode(self, slist: Node):
         if slist == None:
             return
         print(slist.data, ' --> ', end='')
-        self.showAlg(slist.next)
+        self.showNode(slist.next)
 
-    def searchAlg(self, data, slist: Node, start=0):
+    def searchNode(self, data, slist: Node, start=0):
         if slist == None:
             return False
         elif slist.data == data:
             return start
-        return self.searchAlg(data, slist.next, start+1)
+        return self.searchNode(data, slist.next, start+1)
 
-    def addAlg(self, data, slist: Node):
+    def addNode(self, data, slist: Node):
         if slist.next == None:
             if type(data) == type(Node()):
                 slist.next = data
             else:
                 slist.next = Node(data)
         else:
-            self.addAlg(data, slist.next)
+            self.addNode(data, slist.next)
 
 
 if __name__ == '__main__':
     SinglyObj = SLList()
     SinglyObj.first = Node('A')
-    SinglyObj.addNode('C')
-    SinglyObj.addNode('M')
-    SinglyObj.addNode('P')
-    SinglyObj.insert(4, 'X')
+    SinglyObj.add('C')
+    SinglyObj.add('M')
+    SinglyObj.add('P')
+    # SinglyObj.insert(4, 'X')
+    SinglyObj.delete('C')
+    # SinglyObj.show()

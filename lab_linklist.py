@@ -35,16 +35,19 @@ class SLList:
             self.head = new_data
 
     def insert(self, idx, data):
+        # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
         st_toidx = self.headtoIdx(idx, self.first, Node())
+        # todo ตัวแปรที่เก็บตั้งแต่ Node ที่ idx ถึง Node สุดท้าย
         prev_node = self.idxtoLast(idx, self.first)
-        new_node = Node(data)
-        if idx > 0:
-            st_toidx = st_toidx.next
-            new_node.next = prev_node
+        new_node = Node(data)  # todo สร้าง Node ใหม่จาก data
+        if idx > 0:  # todo ถ้า idx มากกว่า 0
+            st_toidx = st_toidx.next  # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
+            new_node.next = prev_node  # todo  นำ new_node ไปต่อกับ Node ที่เหลือ
+            # todo นำ new_node มาต่อกับ st_toidx
             self.addNode(new_node, st_toidx)
             self.showNode(st_toidx)
-        elif idx == 0:
-            new_node.next = prev_node
+        elif idx == 0:  # todo ถ้า idx เท่ากับ 0
+            new_node.next = prev_node  # todo  นำ new_node มาต่อกับเป็น Node แรก
             self.showNode(new_node)
 
     def delNode(self, key, slist: Node):
@@ -83,6 +86,7 @@ class SLList:
 
         temp = None
 
+    # todo function ที่เก็บNode ตั้งแต่ Node แรก ถึง Node ที่ idx
     def headtoIdx(self, idx, head: Node, newNode: Node):
         if idx == 0:
             return newNode
@@ -90,6 +94,7 @@ class SLList:
             self.addNode(head.data, newNode)
             return self.headtoIdx(idx-1, head.next, newNode)
 
+    # todo function ที่เก็บNode ตั้งแต่ Nodeที่ idx ถึง Node สุดท้าย
     def idxtoLast(self, idx, head: Node):
         if idx == 0:
             return head

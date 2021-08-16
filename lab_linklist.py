@@ -47,7 +47,7 @@ class SLList:
             self.addNode(new_node, st_toidx)
             self.showNode(st_toidx)
         elif idx == 0:  # todo ถ้า idx เท่ากับ 0
-            new_node.next = prev_node  # todo  นำ new_node มาต่อกับเป็น Node แรก
+            new_node.next = prev_node  # todo  นำ new_node มาต่อเป็น Node แรก
             self.showNode(new_node)
 
     def delNode(self, key, slist: Node):

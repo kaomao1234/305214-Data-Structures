@@ -22,8 +22,7 @@ class SLList:
         return self.lenNode(self.first)
 
     def delete(self, key):
-        self.delNode(key, self.first)
-        self.show()
+        self.first = self.delNode(key, self.first)
 
     def push(self, new_data):
         if type(Node()) == new_data:
@@ -45,45 +44,21 @@ class SLList:
             new_node.next = prev_node  # todo  นำ new_node ไปต่อกับ Node ที่เหลือ
             # todo นำ new_node มาต่อกับ st_toidx
             self.addNode(new_node, st_toidx)
-            self.showNode(st_toidx)
+
         elif idx == 0:  # todo ถ้า idx เท่ากับ 0
             new_node.next = prev_node  # todo  นำ new_node มาต่อเป็น Node แรก
-            self.showNode(new_node)
+    # todo สร้าง fuction delNode กำหนดและ new_node เป็น node ใหม่
 
-    def delNode(self, key, slist: Node):
-        if slist.data == key:
-            print(slist.data)
+    def delNode(self, key, slist: Node, new_node=Node()):
+        if slist == None:  # todo ถ้าslist == None
+            new_node = new_node.next
+            return new_node
+        elif slist.data != key:  # todo ถ้า varที่ต้องการลบ ไม่เท่ากับ data
+            # todo เพิ่มข้อมูลเข้าไปใน new_node
+            self.addNode(slist.data, new_node)
+            return self.delNode(key, slist.next, new_node)
         else:
-            self.delNode(key, slist.next)
-
-    def deleteNode(self, key):
-
-        # Store head node
-        temp = self.first
-
-        # If head node itself holds the key to be deleted
-        if (temp is not None):
-            if (temp.data == key):
-                self.first = temp.next
-                temp = None
-                return
-
-        # Search for the key to be deleted, keep track of the
-        # previous node as we need to change 'prev.next'
-        while(temp is not None):
-            if temp.data == key:
-                break
-            prev = temp
-            temp = temp.next
-
-        # if key was not present in linked list
-        if(temp == None):
-            return
-
-        # Unlink the node from linked list
-        prev.next = temp.next
-
-        temp = None
+            return self.delNode(key, slist.next, new_node)
 
     # todo function ที่เก็บNode ตั้งแต่ Node แรก ถึง Node ที่ idx
     def headtoIdx(self, idx, head: Node, newNode: Node):
@@ -136,5 +111,5 @@ if __name__ == '__main__':
     SinglyObj.add('M')
     SinglyObj.add('P')
     # SinglyObj.insert(4, 'X')
-    SinglyObj.delete('C')
-    # SinglyObj.show()
+    SinglyObj.delete('M')
+    SinglyObj.show()

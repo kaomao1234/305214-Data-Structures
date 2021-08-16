@@ -44,9 +44,12 @@ class SLList:
             new_node.next = prev_node  # todo  นำ new_node ไปต่อกับ Node ที่เหลือ
             # todo นำ new_node มาต่อกับ st_toidx
             self.addNode(new_node, st_toidx)
+            self.first = st_toidx
 
         elif idx == 0:  # todo ถ้า idx เท่ากับ 0
             new_node.next = prev_node  # todo  นำ new_node มาต่อเป็น Node แรก
+            self.first = new_node
+            
     # todo สร้าง fuction delNode กำหนดและ new_node เป็น node ใหม่
 
     def delNode(self, key, slist: Node, new_node=Node()):
@@ -110,6 +113,6 @@ if __name__ == '__main__':
     SinglyObj.add('C')
     SinglyObj.add('M')
     SinglyObj.add('P')
-    # SinglyObj.insert(4, 'X')
-    SinglyObj.delete('M')
+    SinglyObj.insert(0, 'X')
+    # SinglyObj.delete('M')
     SinglyObj.show()

@@ -113,6 +113,6 @@ if __name__ == '__main__':
     SinglyObj.add('C')
     SinglyObj.add('M')
     SinglyObj.add('P')
-    SinglyObj.insert(0, 'X')
-    # SinglyObj.delete('M')
+    # SinglyObj.insert(0, 'X')
+    SinglyObj.delete('P')
     SinglyObj.show()

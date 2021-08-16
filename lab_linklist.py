@@ -52,8 +52,7 @@ class SLList:
 
     def delNode(self, key, slist: Node):
         if slist.data == key:
-            slist = slist.next
-            self.showNode(slist)
+            print(slist.data)
         else:
             self.delNode(key, slist.next)
 
@@ -94,7 +93,7 @@ class SLList:
             self.addNode(head.data, newNode)
             return self.headtoIdx(idx-1, head.next, newNode)
 
-    # todo function ที่เก็บNode ตั้งแต่ Nodeที่ idx ถึง Node สุดท้าย
+    # todo function ที่เก็บตั้งแต่ Nodeที่ idx ถึง Node สุดท้าย
     def idxtoLast(self, idx, head: Node):
         if idx == 0:
             return head

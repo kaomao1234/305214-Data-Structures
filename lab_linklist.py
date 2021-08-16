@@ -49,9 +49,8 @@ class SLList:
         elif idx == 0:  # todo ถ้า idx เท่ากับ 0
             new_node.next = prev_node  # todo  นำ new_node มาต่อเป็น Node แรก
             self.first = new_node
-            
-    # todo สร้าง fuction delNode กำหนดและ new_node เป็น node ใหม่
 
+    # todo สร้าง fuction delNode กำหนดและ new_node เป็น node ใหม่
     def delNode(self, key, slist: Node, new_node=Node()):
         if slist == None:  # todo ถ้าslist == None
             new_node = new_node.next

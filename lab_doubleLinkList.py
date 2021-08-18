@@ -12,12 +12,17 @@ class DoubleLL:
         self.disp = lambda: self.__dispNode__(self.head)
         self.incheck = lambda data: self.__inNode__(self.head, data)
         self.index = lambda data: self.__idxNode__(self.head, data)
+        self.len = lambda: self.__lenNode__(self.head)
 
     def insert(self, idx: int, data):
         new_node = Node(data)
-        self.__insertNode__(self.head, idx, data, new_node)
         if idx == 0:
+            self.__insertNode__(self.head, idx, data, new_node)
             self.head = new_node
+        elif idx == self.len()+1:
+            self.__addNode__(self.head, data)
+        else:
+            self.__insertNode__(self.head, idx, data, new_node)
 
     def __insertNode__(self, slist: Node, idx, data, newNode):
         if idx-1 < 0:
@@ -31,6 +36,12 @@ class DoubleLL:
         else:
             return self.__insertNode__(slist.next, idx-1, data, newNode)
 
+    def __lenNode__(self, slist, var=0):
+        if slist == None:
+            return var
+        else:
+            return self.__lenNode__(slist.next, var+1)
+
     def __idxNode__(self, slist, data, count=0):
         if slist == None:
             indexNodeError = '{} is not in LinkedList.'.format(data)
@@ -40,7 +51,7 @@ class DoubleLL:
         else:
             return self.__idxNode__(slist.next, data, count+1)
 
-    def __addNode__(self, slist: int, data):
+    def __addNode__(self, slist: Node, data):
         if slist.next == None:
             nodeData = Node(data)
             nodeData.prev = slist
@@ -62,8 +73,9 @@ class DoubleLL:
             self.__dispNode__(slist.next)
 
 
-Object = DoubleLL(Node('A'))
-Object.add('B')
-Object.add('C')
-Object.insert(0, 'M')
-Object.disp()
+if __name__ == '__main__':
+    Object = DoubleLL(Node('A'))
+    Object.add('B')
+    Object.add('C')
+    Object.insert(4, 'M')
+    Object.disp()

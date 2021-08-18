@@ -12,17 +12,24 @@ class DoubleLL:
         self.disp = lambda: self.__dispNode__(self.head)
         self.incheck = lambda data: self.__inNode__(self.head, data)
         self.index = lambda data: self.__idxNode__(self.head, data)
-        self.insert = lambda idx, data: self.__insertNode__(
-            self.head, idx, data)
 
-    def __insertNode__(self, slist: Node, idx, data):
+    def insert(self, idx: int, data):
+        new_node = Node(data)
+        self.__insertNode__(self.head, idx, data, new_node)
+        if idx == 0:
+            self.head = new_node
+
+    def __insertNode__(self, slist: Node, idx, data, newNode):
         if idx-1 < 0:
-            ptr = slist
-            print(id(ptr) == id(slist))
-        elif idx == 0:
-            print(1)
+            slist.prev = newNode
+            newNode.next = slist
+        elif idx-1 == 0:
+            newNode.prev = slist
+            newNode.next = slist.next
+            slist.next.prev = newNode
+            slist.next = newNode
         else:
-            self.__insertNode__(slist.next, idx-1, data)
+            return self.__insertNode__(slist.next, idx-1, data, newNode)
 
     def __idxNode__(self, slist, data, count=0):
         if slist == None:
@@ -57,5 +64,6 @@ class DoubleLL:
 
 Object = DoubleLL(Node('A'))
 Object.add('B')
+Object.add('C')
 Object.insert(0, 'M')
 Object.disp()

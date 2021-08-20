@@ -13,4 +13,3 @@ else:
 if Old<21 or Old>60:
     tax = tax * .6
 print('Username : {}\nAge : {}\nIncome : {} Bath\nHave to pay tax : {} Bath'.format(Name,Old,income,tax))
-

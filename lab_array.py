@@ -1,7 +1,21 @@
 import time
 # ! 1. ให้เปิดNotepad พิมพ์ค่าต่อไปนี้แล้วsave เป็นชื่อdata.txt ให้อ่านข้อมูลจากไฟล์โดยแต่ละกําหนดindex เริ่มต้นเองให้สร้างfunctionชื่อว่าcreateมาเก็บในarray เพียง12 ค่าและแสดงค่า
 # todo 34 24 3 66 47 18 8 26 55 82 29 32 17 6 72 27 23 9 44 12 60 89 10 57 46 54 7 33 95 56 77 22 51 19
-
+"""
+1,2,3,4
+len(array) -1 
+(1,2),(2,3),(3,4)
+array = 5,6,7,1,2
+n = 2
+m = n+1
+array[n] > array[m] ?
+   7>1
+   maxVal = 7
+   minVal = 1
+   array[n] = minVal
+   array[m] = maxVal   
+   5,6,1,7,2
+"""
 
 class Array:
     def __init__(self, *arg: int):

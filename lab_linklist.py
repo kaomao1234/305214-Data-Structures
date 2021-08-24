@@ -43,6 +43,12 @@ class SLList:
             new_data.next = self.first
             self.first = new_data
 
+    def pop(self, data, slist: Node):
+        if slist.next.data == data:
+            slist.next = None
+        else:
+            self.pop(data, slist.next)
+
     def insert(self, idx, data):
         # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
         st_toidx = self.headtoIdx(idx, self.first, Node())
@@ -122,6 +128,6 @@ if __name__ == '__main__':
     SinglyObj.add('C')
     SinglyObj.add('M')
     SinglyObj.add('P')
-    SinglyObj.delV2(SinglyObj.first, 'A')
+    # SinglyObj.pop()
     # SinglyObj.insert(0, 'X')
     SinglyObj.show()

@@ -3,5 +3,7 @@ class M:
         pass
     def __max(self):
         print(1)
-M().__max()
+p = M()
+print(p.__dir__())
+
     

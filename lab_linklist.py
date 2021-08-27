@@ -4,50 +4,69 @@ class Node:
         self.next = None
 
 
+class StackNode:
+    def __init__(self, data=None):
+        self.data = data
+
+    # def pop(self, slist=False):
+    #     if slist == False:
+    #         self.pop(self.data)
+    #     elif slist.next == None:
+    #         slist.data = None
+    #     elif slist.next.next == None:
+    #         slist.next = None
+    #     else:
+    #         self.pop(slist.next)
+    def pop(self):
+        afterNode = self.data.next
+        if afterNode == None:
+            del self.data
+        else:
+            self.data.data = afterNode.data
+            self.data.next = afterNode.next
+            
+    def push(self,data):
+        self.__pushNode(data,self.data)
+        
+    def __pushNode(self, data, slist: Node):
+        if slist.next == None:
+            if type(data) == type(Node()):
+                slist.next = data
+            else:
+                slist.next = Node(data)
+        else:
+            self.__pushNode(data, slist.next)
+
+
 class SLList:
 
     def __init__(self):
         self.first = None
 
     def add(self, data):
-        self.__addNode__(data, self.first)
+        self.__addNode(data, self.first)
 
     def search(self, ele):
-        return self.__searchNode__(ele, self.first)
+        return self.__searchNode(ele, self.first)
 
     def show(self):
-        self.__showNode__(self.first)
+        self.__showNode(self.first)
 
     def len(self):
-        return self.__lenNode__(self.first)
+        return self.__lenNode(self.first)
 
     def delete(self, key):
-        self.first = self.__delNode__(key, self.first)
+        self.first = self.__delNode(key, self.first)
 
     def delV2(self, slist, key):
         if slist.data == key:
             print(slist.data == key)
-            slist = None
+            slist = slist.next
         elif slist.next.data == key:
             ptr = slist.next.next
             slist.next = ptr
         else:
             self.delV2(slist.next, key)
-
-    def push(self, new_data):
-        if type(Node()) == new_data:
-            new_data.next = self.first
-            self.first = new_data
-        else:
-            new_data = Node(new_data)
-            new_data.next = self.first
-            self.first = new_data
-
-    def pop(self, data, slist: Node):
-        if slist.next.data == data:
-            slist.next = None
-        else:
-            self.pop(data, slist.next)
 
     def insert(self, idx, data):
         # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
@@ -59,7 +78,7 @@ class SLList:
             st_toidx = st_toidx.next  # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
             new_node.next = prev_node  # todo  นำ new_node ไปต่อกับ Node ที่เหลือ
             # todo นำ new_node มาต่อกับ st_toidx
-            self.__addNode__(new_node, st_toidx)
+            self.__addNode(new_node, st_toidx)
             self.first = st_toidx
 
         elif idx == 0:  # todo ถ้า idx เท่ากับ 0
@@ -67,23 +86,23 @@ class SLList:
             self.first = new_node
 
     # todo สร้าง fuction delNode กำหนดและ new_node เป็น node ใหม่
-    def __delNode__(self, key, slist: Node, new_node=Node()):
+    def __delNode(self, key, slist: Node, new_node=Node()):
         if slist == None:  # todo ถ้าslist == None
             new_node = new_node.next
             return new_node
         elif slist.data != key:  # todo ถ้า varที่ต้องการลบ ไม่เท่ากับ data
             # todo เพิ่มข้อมูลเข้าไปใน new_node
-            self.addNode(slist.data, new_node)
-            return self.__delNode__(key, slist.next, new_node)
+            self.__addNode(slist.data, new_node)
+            return self.__delNode(key, slist.next, new_node)
         else:
-            return self.__delNode__(key, slist.next, new_node)
+            return self.__delNode(key, slist.next, new_node)
 
     # todo function ที่เก็บNode ตั้งแต่ Node แรก ถึง Node ที่ idx
     def headtoIdx(self, idx, head: Node, newNode: Node):
         if idx == 0:
             return newNode
         else:
-            self.__addNode__(head.data, newNode)
+            self.__addNode(head.data, newNode)
             return self.headtoIdx(idx-1, head.next, newNode)
 
     # todo function ที่เก็บตั้งแต่ Nodeที่ idx ถึง Node สุดท้าย
@@ -93,41 +112,47 @@ class SLList:
         else:
             return self.idxtoLast(idx-1, head.next)
 
-    def __lenNode__(self, slist: Node, var=0):
+    def __lenNode(self, slist: Node, var=0):
         if slist == None:
             return var
         else:
-            return self.__lenNode__(slist.next, var+1)
+            return self.__lenNode(slist.next, var+1)
 
-    def __showNode__(self, slist: Node):
+    def __showNode(self, slist: Node):
         if slist == None:
             return
         print(slist.data, ' --> ', end='')
-        self.__showNode__(slist.next)
+        self.__showNode(slist.next)
 
-    def __searchNode__(self, data, slist: Node, start=0):
+    def __searchNode(self, data, slist: Node, start=0):
         if slist == None:
             return False
         elif slist.data == data:
             return start
-        return self.__searchNode__(data, slist.next, start+1)
+        return self.__searchNode(data, slist.next, start+1)
 
-    def __addNode__(self, data, slist: Node):
+    def __addNode(self, data, slist: Node):
         if slist.next == None:
             if type(data) == type(Node()):
                 slist.next = data
             else:
                 slist.next = Node(data)
         else:
-            self.__addNode__(data, slist.next)
+            self.__addNode(data, slist.next)
 
 
 if __name__ == '__main__':
-    SinglyObj = SLList()
-    SinglyObj.first = Node('A')
-    SinglyObj.add('C')
-    SinglyObj.add('M')
-    SinglyObj.add('P')
-    # SinglyObj.pop()
-    # SinglyObj.insert(0, 'X')
-    SinglyObj.show()
+    single_link = SLList()
+    single_link.first = Node('O')
+    stack_node = StackNode(single_link.first)
+    single_link.add('P')
+    single_link.add('C')
+    single_link.add('G')
+    single_link.add('I')
+    stack_node.pop()
+    stack_node.pop()
+    stack_node.pop()
+    stack_node.pop()
+    stack_node.pop()
+    # stack_node.push('K')
+    single_link.show()

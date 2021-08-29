@@ -2,7 +2,8 @@ class Node:
     def __init__(self, data=None):
         self.data = data
         self.next = None
-        
+
+
 class SLList:
 
     def __init__(self):
@@ -28,32 +29,23 @@ class SLList:
             self.first = None
         else:
             self.__pop(self.first)
-            
+
     def dequeue(self):
         self.first = self.first.next
 
     def enqueue(self, data):
-        self.__addNode(data,self.first)
-    
-    def push(self,data):
-        self.__addNode(data,self.first)
-    
+        self.__addNode(data, self.first)
+
+    def push(self, data):
+        self.__addNode(data, self.first)
+
     def __pop(self, slist: Node):
         if slist.next.next == None:
             slist.next = None
         else:
             self.__pop(slist.next)
-        
 
-    def delV2(self, slist, key):
-        if slist.data == key:
-            print(slist.data == key)
-            slist = slist.next
-        elif slist.next.data == key:
-            ptr = slist.next.next
-            slist.next = ptr
-        else:
-            self.delV2(slist.next, key)
+            
 
     def insert(self, idx, data):
         # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
@@ -133,7 +125,5 @@ if __name__ == '__main__':
     single_link.first = Node('O')
     for i in range(4, 6):
         single_link.add(i)
-    single_link.pop()
-    single_link.pop()
-    single_link.pop()
+    single_link.delete(6)
     single_link.show()

@@ -10,19 +10,22 @@ class SLList:
         self.first = None
 
     def add(self, data):
-        self.__addNode(data, self.first)
+        self.__add(data, self.first)
 
     def search(self, ele):
-        return self.__searchNode(ele, self.first)
+        return self.__search(ele, self.first)
 
     def show(self):
-        self.__showNode(self.first)
+        self.__show(self.first)
 
     def len(self):
-        return self.__lenNode(self.first)
+        return self.__len(self.first)
 
     def delete(self, key):
-        self.first = self.__delNode(key, self.first)
+        if key == self.first.data:
+            self.first = self.first.next
+        else:
+            self.__del(self.first, key)
 
     def pop(self):
         if self.first.next == None:
@@ -34,10 +37,27 @@ class SLList:
         self.first = self.first.next
 
     def enqueue(self, data):
-        self.__addNode(data, self.first)
+        self.__add(data, self.first)
 
     def push(self, data):
-        self.__addNode(data, self.first)
+        self.__add(data, self.first)
+
+    def insert(self, data, idx: int):
+        if idx-1 < 0:
+            p = Node(data)
+            p.next = self.first
+            self.first = p
+        else:
+            self.__insert(self.first, data, idx)
+
+    def __insert(self, slist: Node, data, idx: int):
+        if idx-1 == 0:
+            p = Node(data)
+            ptr = slist.next
+            p.next = ptr
+            slist.next = p
+        else:
+            self.__insert(slist.next, data, idx-1)
 
     def __pop(self, slist: Node):
         if slist.next.next == None:
@@ -45,9 +65,41 @@ class SLList:
         else:
             self.__pop(slist.next)
 
-            
+    def __del(self, slist: Node, key):
+        if slist.next.data == key:
+            slist.next = slist.next.next
+        else:
+            self.__del(slist.next, key)
 
-    def insert(self, idx, data):
+    def __len(self, slist: Node, var=0):
+        if slist == None:
+            return var
+        else:
+            return self.__len(slist.next, var+1)
+
+    def __show(self, slist: Node):
+        if slist == None:
+            return
+        print(slist.data, ' --> ', end='')
+        self.__show(slist.next)
+
+    def __search(self, data, slist: Node, start=0):
+        if slist == None:
+            return False
+        elif slist.data == data:
+            return start
+        return self.__search(data, slist.next, start+1)
+
+    def __add(self, data, slist: Node):
+        if slist.next == None:
+            if type(data) == type(Node()):
+                slist.next = data
+            else:
+                slist.next = Node(data)
+        else:
+            self.__add(data, slist.next)
+
+    def insertV2(self, idx, data):
         # todo ตัวแปรที่เก็บตั้งแต่ Node แรก ถึง Node idx
         st_toidx = self.headtoIdx(idx, self.first, Node())
         # todo ตัวแปรที่เก็บตั้งแต่ Node ที่ idx ถึง Node สุดท้าย
@@ -91,39 +143,11 @@ class SLList:
         else:
             return self.idxtoLast(idx-1, head.next)
 
-    def __lenNode(self, slist: Node, var=0):
-        if slist == None:
-            return var
-        else:
-            return self.__lenNode(slist.next, var+1)
-
-    def __showNode(self, slist: Node):
-        if slist == None:
-            return
-        print(slist.data, ' --> ', end='')
-        self.__showNode(slist.next)
-
-    def __searchNode(self, data, slist: Node, start=0):
-        if slist == None:
-            return False
-        elif slist.data == data:
-            return start
-        return self.__searchNode(data, slist.next, start+1)
-
-    def __addNode(self, data, slist: Node):
-        if slist.next == None:
-            if type(data) == type(Node()):
-                slist.next = data
-            else:
-                slist.next = Node(data)
-        else:
-            self.__addNode(data, slist.next)
-
 
 if __name__ == '__main__':
-    single_link = SLList()
-    single_link.first = Node('O')
+    singly_link = SLList()
+    singly_link.first = Node('O')
     for i in range(4, 6):
-        single_link.add(i)
-    single_link.delete(6)
-    single_link.show()
+        singly_link.add(i)
+    singly_link.delete()
+    singly_link.show()

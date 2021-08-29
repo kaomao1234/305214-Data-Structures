@@ -2,42 +2,7 @@ class Node:
     def __init__(self, data=None):
         self.data = data
         self.next = None
-
-
-class StackNode:
-    def __init__(self, data=None):
-        self.data = data
-
-    # def pop(self, slist=False):
-    #     if slist == False:
-    #         self.pop(self.data)
-    #     elif slist.next == None:
-    #         slist.data = None
-    #     elif slist.next.next == None:
-    #         slist.next = None
-    #     else:
-    #         self.pop(slist.next)
-    def pop(self):
-        afterNode = self.data.next
-        if afterNode == None:
-            del self.data
-        else:
-            self.data.data = afterNode.data
-            self.data.next = afterNode.next
-            
-    def push(self,data):
-        self.__pushNode(data,self.data)
         
-    def __pushNode(self, data, slist: Node):
-        if slist.next == None:
-            if type(data) == type(Node()):
-                slist.next = data
-            else:
-                slist.next = Node(data)
-        else:
-            self.__pushNode(data, slist.next)
-
-
 class SLList:
 
     def __init__(self):
@@ -57,6 +22,28 @@ class SLList:
 
     def delete(self, key):
         self.first = self.__delNode(key, self.first)
+
+    def pop(self):
+        if self.first.next == None:
+            self.first = None
+        else:
+            self.__pop(self.first)
+            
+    def dequeue(self):
+        self.first = self.first.next
+
+    def enqueue(self, data):
+        self.__addNode(data,self.first)
+    
+    def push(self,data):
+        self.__addNode(data,self.first)
+    
+    def __pop(self, slist: Node):
+        if slist.next.next == None:
+            slist.next = None
+        else:
+            self.__pop(slist.next)
+        
 
     def delV2(self, slist, key):
         if slist.data == key:
@@ -144,15 +131,9 @@ class SLList:
 if __name__ == '__main__':
     single_link = SLList()
     single_link.first = Node('O')
-    stack_node = StackNode(single_link.first)
-    single_link.add('P')
-    single_link.add('C')
-    single_link.add('G')
-    single_link.add('I')
-    stack_node.pop()
-    stack_node.pop()
-    stack_node.pop()
-    stack_node.pop()
-    stack_node.pop()
-    # stack_node.push('K')
+    for i in range(4, 6):
+        single_link.add(i)
+    single_link.pop()
+    single_link.pop()
+    single_link.pop()
     single_link.show()

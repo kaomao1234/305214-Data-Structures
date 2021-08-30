@@ -34,6 +34,9 @@ class DoubleLL:
         else:
             self.__del(self.head, key)
 
+    def contain(self, data):
+        return self.__contain(self.head, data)
+
     def disp(self):
         return self.__disp(self.head)
 

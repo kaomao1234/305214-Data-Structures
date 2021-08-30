@@ -1,5 +1,4 @@
-from termcolor import colored
-from pyfiglet import Figlet
+from termcolor import colored,cprint
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -103,17 +102,15 @@ class DoubleLL:
 
 
 if __name__ == '__main__':
-    f = Figlet(font='banner3-D')
-    print(colored(f.renderText('KUY TAR'),'green'))
-    # double_link = DoubleLL(Node('A'))
-    # double_link.add('B')
-    # double_link.add('C')
-    # double_link.add('D')
-    # print(colored('Double linkedList','yellow'))
-    # double_link.disp()
-    # print('insert M at 0')
-    # double_link.insert('M', 0)
-    # double_link.disp()
-    # print('delete A from Node.')
-    # double_link.delete('A')
-    # double_link.disp()
+    double_link = DoubleLL(Node('A'))
+    double_link.add('B')
+    double_link.add('C')
+    double_link.add('D')
+    cprint('Double linkedList','red','on_white')
+    double_link.disp()
+    cprint('insert M at 0.','magenta')
+    double_link.insert('M', 0)
+    double_link.disp()
+    cprint('delete A from Node.','magenta')
+    double_link.delete('A')
+    double_link.disp()

@@ -1,4 +1,4 @@
-
+from termcolor import colored
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -17,7 +17,7 @@ class SLList:
         return self.__search(ele, self.first)
 
     def show(self):
-        self.__show(self.first)
+        return self.__show(self.first)
 
     def len(self):
         return self.__len(self.first)
@@ -78,11 +78,12 @@ class SLList:
         else:
             return self.__len(slist.next, var+1)
 
-    def __show(self, slist: Node):
+    def __show(self, slist: Node , disp=[]):
         if slist == None:
-            return
-        print(slist.data, ' --> ', end='')
-        self.__show(slist.next)
+            print(' --> '.join(disp))
+            return ' --> '.join(disp)
+        disp.append(colored(str(slist.data),'green'))
+        return self.__show(slist.next)
 
     def __search(self, data, slist: Node, start=0):
         if slist == None:
@@ -148,7 +149,6 @@ class SLList:
 if __name__ == '__main__':
     singly_link = SLList()
     singly_link.first = Node('O')
-    for i in range(4, 6):
+    for i in range(4, 9):
         singly_link.add(i)
-    singly_link.delete()
     singly_link.show()

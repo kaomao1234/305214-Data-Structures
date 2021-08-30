@@ -1,3 +1,5 @@
+from termcolor import colored
+from pyfiglet import Figlet
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -38,7 +40,8 @@ class DoubleLL:
         return self.__contain(self.head, data)
 
     def disp(self):
-        return self.__disp(self.head)
+        dispVar = []
+        return self.__disp(self.head,dispVar)
 
     def __insert(self, slist: Node, key, idx):
         if idx-1 == 0:
@@ -89,20 +92,28 @@ class DoubleLL:
         else:
             return self.__contain(data, slist.next)
 
-    def __disp(self, slist: Node, dispVar=[]):
+    def __disp(self, slist: Node, dispVar:list):
         if slist == None:
             result = ' --> '.join(dispVar)
             print(result)
             return result
         else:
-            dispVar.append(str(slist.data))
-            self.__disp(slist.next)
+            dispVar.append(colored(str(slist.data),'green'))
+            self.__disp(slist.next,dispVar)
 
 
 if __name__ == '__main__':
-    Object = DoubleLL(Node('A'))
-    Object.add('B')
-    Object.add('C')
-    Object.insert('M', 0)
-    Object.delete('A')
-    Object.disp()
+    f = Figlet(font='banner3-D')
+    print(colored(f.renderText('KUY TAR'),'green'))
+    # double_link = DoubleLL(Node('A'))
+    # double_link.add('B')
+    # double_link.add('C')
+    # double_link.add('D')
+    # print(colored('Double linkedList','yellow'))
+    # double_link.disp()
+    # print('insert M at 0')
+    # double_link.insert('M', 0)
+    # double_link.disp()
+    # print('delete A from Node.')
+    # double_link.delete('A')
+    # double_link.disp()

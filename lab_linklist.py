@@ -59,7 +59,7 @@ class SLList:
 
     def enqueue(self, data):
         if self.first.data == None:
-            self.first = Node(data)
+            self.first.data = data
         else:
             self.__add(data, self.first)
 
@@ -134,16 +134,6 @@ class SLList:
 if __name__ == '__main__':
     singly_link = SLList()
     singly_link.first = Node('O')
-    for i in range(4, 7):
-        singly_link.add(i)
-    # print(singly_link.dequeue())
-    print(singly_link.pop())
-    print(singly_link.pop())
-    print(singly_link.pop())
-    print(singly_link.pop())
     print(singly_link.dequeue())
-    singly_link.push('M')
-    singly_link.enqueue(8)
-    singly_link.pop()
     print(singly_link.dequeue())
     singly_link.show()

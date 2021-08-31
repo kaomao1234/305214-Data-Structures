@@ -22,7 +22,10 @@ class SLList:
         return self.__search(ele, self.first)
 
     def show(self):
-        return self.__show(self.first)
+        if self.first.data == None:
+            print('Emty Node.')
+        else:
+            return self.__show(self.first)
 
     def len(self):
         return self.__len(self.first)
@@ -46,12 +49,12 @@ class SLList:
     def dequeue(self):
         if self.first.data == None:
             return 'Emty Node.'
-        elif self.first == None:
-            self.first = Node()
-            return 'Emty Node.'
         else:
             getDequeue = self.first.data
-            self.first = self.first.next
+            if self.first.next == None:
+                self.first = Node()
+            else:
+                self.first = self.first.next
             return getDequeue
 
     def enqueue(self, data):
@@ -142,5 +145,5 @@ if __name__ == '__main__':
     singly_link.push('M')
     singly_link.enqueue(8)
     singly_link.pop()
-    singly_link.dequeue()
+    print(singly_link.dequeue())
     singly_link.show()

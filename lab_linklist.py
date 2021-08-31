@@ -112,7 +112,7 @@ class SLList:
             print(' --> '.join(disp))
             return ' --> '.join(disp)
         disp.append(colored(str(slist.data), 'green'))
-        return self.__show(slist.next)
+        return self.__show(slist.next,disp)
 
     def __search(self, data, slist: Node, start=0):
         if slist == None:

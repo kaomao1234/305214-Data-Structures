@@ -106,7 +106,7 @@ if __name__ == '__main__':
     double_link.add('B')
     double_link.add('C')
     double_link.add('D')
-    cprint('Double linkedList','red','on_white')
+    cprint('Double linkedList','red')
     double_link.disp()
     cprint('insert M at 0.','magenta')
     double_link.insert('M', 0)

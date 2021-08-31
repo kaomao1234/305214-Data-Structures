@@ -13,7 +13,10 @@ class SLList:
         self.first = None
 
     def add(self, data):
-        self.__add(data, self.first)
+        if self.first.data == None:
+            self.first = Node(data)
+        else:
+            self.__add(data, self.first)
 
     def search(self, ele):
         return self.__search(ele, self.first)
@@ -31,21 +34,37 @@ class SLList:
             self.__del(self.first, key)
 
     def pop(self):
-        if self.first.next == None:
-            self.first = None
+        if self.first.data == None:
+            return 'Emty Node.'
+        elif self.first.next == None:
+            getPop = self.first.data
+            self.first = Node()
+            return getPop
         else:
             return self.__pop(self.first)
 
     def dequeue(self):
-        getDequeue = self.first.data
-        self.first = self.first.next
-        return getDequeue
+        if self.first.data == None:
+            return 'Emty Node.'
+        elif self.first == None:
+            self.first = Node()
+            return 'Emty Node.'
+        else:
+            getDequeue = self.first.data
+            self.first = self.first.next
+            return getDequeue
 
     def enqueue(self, data):
-        self.__add(data, self.first)
+        if self.first.data == None:
+            self.first = Node(data)
+        else:
+            self.__add(data, self.first)
 
     def push(self, data):
-        self.__add(data, self.first)
+        if self.first.data == None:
+            self.first = Node(data)
+        else:
+            self.__add(data, self.first)
 
     def insert(self, data, idx: int):
         if idx-1 < 0:
@@ -88,8 +107,9 @@ class SLList:
         if slist == None:
             print(' --> '.join(disp))
             return ' --> '.join(disp)
-        disp.append(colored(str(slist.data), 'green'))
-        return self.__show(slist.next)
+        elif slist.data != None:
+            disp.append(colored(str(slist.data), 'green'))
+            return self.__show(slist.next)
 
     def __search(self, data, slist: Node, start=0):
         if slist == None:
@@ -100,9 +120,7 @@ class SLList:
 
     def __add(self, data, slist: Node):
         if slist.next == None:
-            if slist.data == None:
-                slist.data = data
-            elif type(data) == type(Node()):
+            if type(data) == type(Node()):
                 slist.next = data
             else:
                 slist.next = Node(data)
@@ -113,7 +131,16 @@ class SLList:
 if __name__ == '__main__':
     singly_link = SLList()
     singly_link.first = Node('O')
-    for i in range(4, 9):
+    for i in range(4, 7):
         singly_link.add(i)
+    # print(singly_link.dequeue())
+    print(singly_link.pop())
+    print(singly_link.pop())
+    print(singly_link.pop())
+    print(singly_link.pop())
     print(singly_link.dequeue())
+    singly_link.push('M')
+    singly_link.enqueue(8)
+    singly_link.pop()
+    singly_link.dequeue()
     singly_link.show()

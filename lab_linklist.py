@@ -25,7 +25,8 @@ class SLList:
         if self.first.data == None:
             print('Emty Node.')
         else:
-            return self.__show(self.first)
+            dispVar =[]
+            return self.__show(self.first,dispVar)
 
     def len(self):
         return self.__len(self.first)
@@ -106,13 +107,12 @@ class SLList:
         else:
             return self.__len(slist.next, var+1)
 
-    def __show(self, slist: Node, disp=[]):
+    def __show(self, slist: Node, disp:list):
         if slist == None:
             print(' --> '.join(disp))
             return ' --> '.join(disp)
-        elif slist.data != None:
-            disp.append(colored(str(slist.data), 'green'))
-            return self.__show(slist.next)
+        disp.append(colored(str(slist.data), 'green'))
+        return self.__show(slist.next)
 
     def __search(self, data, slist: Node, start=0):
         if slist == None:

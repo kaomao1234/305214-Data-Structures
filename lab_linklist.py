@@ -34,10 +34,12 @@ class SLList:
         if self.first.next == None:
             self.first = None
         else:
-            self.__pop(self.first)
+            return self.__pop(self.first)
 
     def dequeue(self):
+        getDequeue = self.first.data
         self.first = self.first.next
+        return getDequeue
 
     def enqueue(self, data):
         self.__add(data, self.first)
@@ -64,9 +66,11 @@ class SLList:
 
     def __pop(self, slist: Node):
         if slist.next.next == None:
+            getPop = slist.next.data
             slist.next = None
+            return getPop
         else:
-            self.__pop(slist.next)
+            return self.__pop(slist.next)
 
     def __del(self, slist: Node, key):
         if slist.next.data == key:
@@ -96,7 +100,9 @@ class SLList:
 
     def __add(self, data, slist: Node):
         if slist.next == None:
-            if type(data) == type(Node()):
+            if slist.data == None:
+                slist.data = data
+            elif type(data) == type(Node()):
                 slist.next = data
             else:
                 slist.next = Node(data)
@@ -109,4 +115,5 @@ if __name__ == '__main__':
     singly_link.first = Node('O')
     for i in range(4, 9):
         singly_link.add(i)
+    print(singly_link.dequeue())
     singly_link.show()

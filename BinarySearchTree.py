@@ -5,7 +5,6 @@ from termcolor import cprint
 class Node:
     def __init__(self, data=None):
         self.data = data
-        self.parent = None
         self.left = None
         self.right = None
 
@@ -41,6 +40,30 @@ class BSTree:
         else:
             print('Data is already in node.')
 
+    def maxValNode(self, node, var=0):
+        if var == 0:
+            var = node.data
+            return self.maxValNode(node.right, var)
+        elif node == None:
+            return Node(var)
+        elif node.data > var:
+            var = node.data
+            return self.maxValNode(node.right, var)
+        else:
+            return self.maxValNode(node.right, var)
+
+    def minValNode(self, node: Node, var=0):
+        if var == 0:
+            var = node.data
+            return self.minValNode(node.left, var)
+        elif node == None:
+            return Node(var)
+        elif node.data < var:
+            var = node.data
+            return self.minValNode(node.left, var)
+        else:
+            return self.minValNode(node.left, var)
+
     def __index(self, node: Node, data, var=0):
         if node.data == data:
             cprint(f'Node: {node.data}', 'magenta')
@@ -64,51 +87,85 @@ class BSTree:
         newNode = Node(data)
         if node.data > data:
             if node.left == None:
-                newNode.parent = node
                 node.left = newNode
             else:
                 self.__create(node.left, data)
         elif node.data < data:
             if node.right == None:
-                newNode.parent = node
                 node.right = newNode
             else:
                 self.__create(node.right, data)
 
     def __del(self, node: Node, key):
         if key < node.data:
-            #* Case 1
-            if node.left.data == key and self.isleaf(node.left) == True:
-                node.left = None
-            #* Case 2
-            elif node.left.data == key:
-                if node.left.right != None:
-                    node.left = node.left.right
-                else:
-                    node.left = node.left.left
+            if node.left.data == key:
+                # * Case 1
+                if self.isleaf(node.left) == True:
+                    node.left = None
+                elif self.isleaf(node.left) == False:
+                    # * Case 2
+                    if node.left.left == None:
+                        node.left = node.left.right
+                    elif node.left.right == None:
+                        node.left = node.left.left
+                    # *Case 3
+                    else:
+                        right = node.left.right
+                        rplace = self.maxValNode(node.left.left)
+                        self.__del(node.left, rplace.data)
+                        left = node.left.left
+                        rplace.left = left
+                        rplace.right = right
+                        node.left = rplace
+                        # right = node.left.right
+                        # rplace = self.minValNode(right)
+                        # self.__del(node.left, rplace.data)
+                        # left = node.left.left
+                        # rplace.left = left
+                        # rplace.right = right
+                        # node.left = rplace
+
             else:
                 self.__del(node.left, key)
         elif key > node.data:
-            #* Case 1
-            if node.right.data == key and self.isleaf(node.right) == True:
-                node.right = None
-            #* Case 2
-            elif node.right.data == key:
-                if node.right.right != None:
-                    node.right = node.right.right
-                elif node.right.left == None:
-                    node.right = node.right.left
+            if node.right.data == key:
+                # * Case 1
+                if self.isleaf(node.right) == True:
+                    node.right = None
+                elif self.isleaf(node.right) == False:
+                    # * Case 2
+                    if node.right.right == None:
+                        node.right = node.right.left
+                    elif node.right.left == None:
+                        node.right = node.right.right
+                    # *Case 3
+                    else:
+                        right = node.right.right
+                        rplace = self.maxValNode(node.right.left)
+                        self.__del(node.right, rplace.data)
+                        left = node.right.left
+                        rplace.left = left
+                        rplace.right = right
+                        node.right = rplace 
+                        # right = node.right.right
+                        # rplace = self.minValNode(right)
+                        # self.__del(node.right, rplace.data)
+                        # left = node.right.left
+                        # rplace.left = left
+                        # rplace.right = right
+                        # node.right = rplace
+                        
             else:
                 self.__del(node.right, key)
 
 
 if __name__ == '__main__':
     bstree = BSTree()
-    list_number = [25,8,53,4,42,37,31,39,86,64,99]
+    list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
     for i in list_number:
         bstree.create(i)
-    # cprint(figlet_format('BinarySearchTree', font='digital'), 'green')
-    bstree.index(53)
+    cprint(figlet_format('Delete', font='digital'), 'green')
+    # bstree.delete(53)
+    bstree.index(25)
     bstree.delete(53)
-    # bstree.index(53)
-    print()
+    bstree.index(42)

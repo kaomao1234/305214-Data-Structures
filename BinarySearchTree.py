@@ -22,6 +22,8 @@ class BSTree:
     def create(self, data):
         if self.root == None:
             self.root = Node(data)
+        elif self.root.data == None:
+            self.root.data = data
         else:
             self.__create(self.root, data)
 
@@ -32,7 +34,31 @@ class BSTree:
         self.__index(self.root, data)
 
     def delete(self, key):
-        self.__del(self.root, key)
+        if key == self.root.data:
+            if self.isleaf(self.root) == True:
+                self.root = Node()
+            else:
+                if self.root.right == None:
+                    self.root = self.root.left
+                elif self.root.left == None:
+                    self.root = self.root.right
+                else:
+                    # rplace = self.maxValNode(self.root.left)
+                    # self.__del(self.root, rplace.data)
+                    # left = self.root.left
+                    # right = self.root.right
+                    # rplace.left = left
+                    # rplace.right = right
+                    # self.root = rplace
+                    rplace = self.minValNode(self.root.right)
+                    self.__del(self.root, rplace.data)
+                    left = self.root.left
+                    right = self.root.right
+                    rplace.left = left
+                    rplace.right = right
+                    self.root = rplace
+        else:
+            self.__del(self.root, key)
 
     def insert(self, data):
         if self.__search(self.root, data) == None:
@@ -102,7 +128,7 @@ class BSTree:
                 # * Case 1
                 if self.isleaf(node.left) == True:
                     node.left = None
-                elif self.isleaf(node.left) == False:
+                else:
                     # * Case 2
                     if node.left.left == None:
                         node.left = node.left.right
@@ -110,21 +136,22 @@ class BSTree:
                         node.left = node.left.left
                     # *Case 3
                     else:
-                        right = node.left.right
-                        rplace = self.maxValNode(node.left.left)
-                        self.__del(node.left, rplace.data)
-                        left = node.left.left
-                        rplace.left = left
-                        rplace.right = right
-                        node.left = rplace
-                        # right = node.left.right
-                        # rplace = self.minValNode(right)
+                        # *Case 3.1
+                        # rplace = self.maxValNode(node.left.left)
                         # self.__del(node.left, rplace.data)
                         # left = node.left.left
+                        # right = node.left.right
                         # rplace.left = left
                         # rplace.right = right
                         # node.left = rplace
-
+                        # *Case 3.2
+                        rplace = self.minValNode(node.left.right)
+                        self.__del(node.left, rplace.data)
+                        left = node.left.left
+                        right = node.left.right
+                        rplace.left = left
+                        rplace.right = right
+                        node.left = rplace
             else:
                 self.__del(node.left, key)
         elif key > node.data:
@@ -132,7 +159,7 @@ class BSTree:
                 # * Case 1
                 if self.isleaf(node.right) == True:
                     node.right = None
-                elif self.isleaf(node.right) == False:
+                else:
                     # * Case 2
                     if node.right.right == None:
                         node.right = node.right.left
@@ -140,21 +167,23 @@ class BSTree:
                         node.right = node.right.right
                     # *Case 3
                     else:
-                        right = node.right.right
-                        rplace = self.maxValNode(node.right.left)
-                        self.__del(node.right, rplace.data)
-                        left = node.right.left
-                        rplace.left = left
-                        rplace.right = right
-                        node.right = rplace 
-                        # right = node.right.right
-                        # rplace = self.minValNode(right)
+                        # *Case 3.1
+                        # rplace = self.maxValNode(node.right.left)
                         # self.__del(node.right, rplace.data)
+                        # right = node.right.right
                         # left = node.right.left
                         # rplace.left = left
                         # rplace.right = right
                         # node.right = rplace
-                        
+                        # *Case 3.2
+                        rplace = self.minValNode(node.right.right)
+                        self.__del(node.right, rplace.data)
+                        left = node.right.left
+                        right = node.right.right
+                        rplace.left = left
+                        rplace.right = right
+                        node.right = rplace
+
             else:
                 self.__del(node.right, key)
 
@@ -164,8 +193,3 @@ if __name__ == '__main__':
     list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
     for i in list_number:
         bstree.create(i)
-    cprint(figlet_format('Delete', font='digital'), 'green')
-    # bstree.delete(53)
-    bstree.index(25)
-    bstree.delete(53)
-    bstree.index(42)

@@ -89,33 +89,14 @@ class BSTree:
         return self.__index(self.root, data)
 
     def delete(self, key):
-        # if key == self.root.data:
-        #     if self.isleaf(self.root) == True:
-        #         self.root = Node()
-        #     else:
-        #         if self.root.right == None:
-        #             self.root = self.root.left
-        #         elif self.root.left == None:
-        #             self.root = self.root.right
-        #         else:
-        #             # rplace = self.maxValNode(self.root.left)
-        #             # self.__del(self.root, rplace.data)
-        #             # left = self.root.left
-        #             # right = self.root.right
-        #             # rplace.left = left
-        #             # rplace.right = right
-        #             # self.root = rplace
-        #             rplace = self.minValNode(self.root.right)
-        #             self.__del(self.root, rplace.data)
-        #             left = self.root.left
-        #             right = self.root.right
-        #             rplace.left = left
-        #             rplace.right = right
-        #             self.root = rplace
         if key == self.root.data:
-            newNode = Node()
-        self.__del(self.root, key)
-            
+            pointer = Node(self.root.data+1)
+            pointer.left = self.root
+            self.__del(pointer, key)
+            self.root = pointer.left
+        else:
+            self.__del(self.root, key)
+
     def insert(self, data):
         if self.__search(self.root, data) == None:
             self.__create(self.root, data)
@@ -175,12 +156,6 @@ class BSTree:
             else:
                 self.__create(node.right, data)
 
-    def del2(self, key):
-        self.__delV2(self.root, key)
-
-    def __delV2(self, node: Node, key):
-        pass
-        
     def __del(self, node: Node, key):
         if key < node.data:
             if node.left.data == key:
@@ -258,5 +233,5 @@ if __name__ == '__main__':
         bstree.create(i)
     # bstree.delete(47)
     bstree.root.display()
-    bstree.del2(64)
+    bstree.delete(25)
     bstree.root.display()

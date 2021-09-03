@@ -1,5 +1,6 @@
 from pyfiglet import figlet_format
 from termcolor import cprint
+import PrettyPrintTree as ppt
 
 
 class Node:
@@ -7,6 +8,60 @@ class Node:
         self.data = data
         self.left = None
         self.right = None
+
+    # * Display Tree form in Terminal
+    def display(self):
+        lines, *_ = self._display_aux()
+        for line in lines:
+            print(line)
+
+    def _display_aux(self):
+        """Returns list of strings, width, height, and horizontal coordinate of the root."""
+        # No child.
+        if self.right is None and self.left is None:
+            line = '%s' % self.data
+            width = len(line)
+            height = 1
+            middle = width // 2
+            return [line], width, height, middle
+
+        # Only left child.
+        if self.right is None:
+            lines, n, p, x = self.left._display_aux()
+            s = '%s' % self.data
+            u = len(s)
+            first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
+            second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
+            shifted_lines = [line + u * ' ' for line in lines]
+            return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
+
+        # Only right child.
+        if self.left is None:
+            lines, n, p, x = self.right._display_aux()
+            s = '%s' % self.data
+            u = len(s)
+            first_line = s + x * '_' + (n - x) * ' '
+            second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
+            shifted_lines = [u * ' ' + line for line in lines]
+            return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
+
+        # Two children.
+        left, n, p, x = self.left._display_aux()
+        right, m, q, y = self.right._display_aux()
+        s = '%s' % self.data
+        u = len(s)
+        first_line = (x + 1) * ' ' + (n - x - 1) * \
+            '_' + s + y * '_' + (m - y) * ' '
+        second_line = x * ' ' + '/' + \
+            (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
+        if p < q:
+            left += [n * ' '] * (q - p)
+        elif q < p:
+            right += [m * ' '] * (p - q)
+        zipped_lines = zip(left, right)
+        lines = [first_line, second_line] + \
+            [a + u * ' ' + b for a, b in zipped_lines]
+        return lines, n + m + u, max(p, q) + 2, n + u // 2
 
 
 class BSTree:
@@ -31,35 +86,36 @@ class BSTree:
         return self.__search(self.root, data)
 
     def index(self, data):
-        self.__index(self.root, data)
+        return self.__index(self.root, data)
 
     def delete(self, key):
+        # if key == self.root.data:
+        #     if self.isleaf(self.root) == True:
+        #         self.root = Node()
+        #     else:
+        #         if self.root.right == None:
+        #             self.root = self.root.left
+        #         elif self.root.left == None:
+        #             self.root = self.root.right
+        #         else:
+        #             # rplace = self.maxValNode(self.root.left)
+        #             # self.__del(self.root, rplace.data)
+        #             # left = self.root.left
+        #             # right = self.root.right
+        #             # rplace.left = left
+        #             # rplace.right = right
+        #             # self.root = rplace
+        #             rplace = self.minValNode(self.root.right)
+        #             self.__del(self.root, rplace.data)
+        #             left = self.root.left
+        #             right = self.root.right
+        #             rplace.left = left
+        #             rplace.right = right
+        #             self.root = rplace
         if key == self.root.data:
-            if self.isleaf(self.root) == True:
-                self.root = Node()
-            else:
-                if self.root.right == None:
-                    self.root = self.root.left
-                elif self.root.left == None:
-                    self.root = self.root.right
-                else:
-                    # rplace = self.maxValNode(self.root.left)
-                    # self.__del(self.root, rplace.data)
-                    # left = self.root.left
-                    # right = self.root.right
-                    # rplace.left = left
-                    # rplace.right = right
-                    # self.root = rplace
-                    rplace = self.minValNode(self.root.right)
-                    self.__del(self.root, rplace.data)
-                    left = self.root.left
-                    right = self.root.right
-                    rplace.left = left
-                    rplace.right = right
-                    self.root = rplace
-        else:
-            self.__del(self.root, key)
-
+            newNode = Node()
+        self.__del(self.root, key)
+            
     def insert(self, data):
         if self.__search(self.root, data) == None:
             self.__create(self.root, data)
@@ -92,10 +148,7 @@ class BSTree:
 
     def __index(self, node: Node, data, var=0):
         if node.data == data:
-            cprint(f'Node: {node.data}', 'magenta')
-            cprint('left: {}'.format(None if node.left ==
-                   None else node.left.data), 'yellow')
-            print('right: ', None if node.right == None else node.right.data)
+            return node
         elif node.data > data:
             return self.__index(node.left, data, var+1)
         else:
@@ -122,6 +175,12 @@ class BSTree:
             else:
                 self.__create(node.right, data)
 
+    def del2(self, key):
+        self.__delV2(self.root, key)
+
+    def __delV2(self, node: Node, key):
+        pass
+        
     def __del(self, node: Node, key):
         if key < node.data:
             if node.left.data == key:
@@ -191,5 +250,13 @@ class BSTree:
 if __name__ == '__main__':
     bstree = BSTree()
     list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
+    # file = open('treeData.txt',mode='r')
+    # list_number = file.read().split(',')
+    # list_number = list(map(int,list_number))
+    # file.close()
     for i in list_number:
         bstree.create(i)
+    # bstree.delete(47)
+    bstree.root.display()
+    bstree.del2(64)
+    bstree.root.display()

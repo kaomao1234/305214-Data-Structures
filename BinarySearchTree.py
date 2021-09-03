@@ -219,14 +219,12 @@ class BSTree:
 
 if __name__ == '__main__':
     bstree = BSTree()
-    list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
-    # file = open('treeData.txt',mode='r')
-    # list_number = file.read().split(',')
-    # list_number = list(map(int,list_number))
-    # file.close()
+    # list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
+    file = open('treeData.txt',mode='r')
+    list_number = file.read().split(',')
+    list_number = list(map(int,list_number))
+    file.close()
     for i in list_number:
         bstree.create(i)
     # bstree.delete(47)
-    bstree.root.display()
-    bstree.delete(25)
     bstree.root.display()

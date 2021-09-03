@@ -14,7 +14,10 @@ class DoubleLL:
         return self.__len(self.head)
 
     def add(self, data):
-        self.__add(self.head, data)
+        if self.head == None:
+            self.head = Node(data)
+        else:
+            self.__add(self.head, data)
 
     def index(self, key):
         return self.__index(self.head, key)
@@ -31,7 +34,6 @@ class DoubleLL:
     def delete(self, key):
         if key == self.head.data:
             self.head = self.head.next
-            self.head.prev = None
         else:
             self.__del(self.head, key)
 
@@ -106,11 +108,9 @@ if __name__ == '__main__':
     double_link.add('B')
     double_link.add('C')
     double_link.add('D')
-    cprint('Double linkedList','red')
-    double_link.disp()
-    cprint('insert M at 0.','magenta')
-    double_link.insert('M', 0)
-    double_link.disp()
-    cprint('delete A from Node.','magenta')
     double_link.delete('A')
+    double_link.delete('B')
+    double_link.delete('C')
+    double_link.delete('D')
+    double_link.add('M')
     double_link.disp()

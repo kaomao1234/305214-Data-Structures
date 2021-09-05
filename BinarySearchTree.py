@@ -1,6 +1,6 @@
 import pyfiglet as pg
 import termcolor as tc
-
+import random as rd
 
 class Node:
     def __init__(self, data=None):
@@ -18,8 +18,9 @@ class Node:
         """Returns list of strings, width, height, and horizontal coordinate of the root."""
         # No child.
         if self.right is None and self.left is None:
-            line = '%s' % self.data
-            width = len(line)
+            real_char = '%s' % self.data
+            line = tc.colored('%s' % self.data,'green')
+            width = len(real_char)
             height = 1
             middle = width // 2
             return [line], width, height, middle
@@ -27,8 +28,9 @@ class Node:
         # Only left child.
         if self.right is None:
             lines, n, p, x = self.left._display_aux()
-            s = '%s' % self.data
-            u = len(s)
+            real_char = '%s' % self.data
+            s = tc.colored('%s' % self.data,'green')
+            u = len(real_char)
             first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
             second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
             shifted_lines = [line + u * ' ' for line in lines]
@@ -37,8 +39,9 @@ class Node:
         # Only right child.
         if self.left is None:
             lines, n, p, x = self.right._display_aux()
-            s = '%s' % self.data
-            u = len(s)
+            real_char = '%s' % self.data
+            s = tc.colored('%s' % self.data,'green')
+            u = len(real_char)
             first_line = s + x * '_' + (n - x) * ' '
             second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
             shifted_lines = [u * ' ' + line for line in lines]
@@ -47,8 +50,9 @@ class Node:
         # Two children.
         left, n, p, x = self.left._display_aux()
         right, m, q, y = self.right._display_aux()
-        s = '%s' % self.data
-        u = len(s)
+        real_char = '%s' % self.data
+        s = tc.colored('%s' % self.data,'green')
+        u = len(real_char)
         first_line = (x + 1) * ' ' + (n - x - 1) * \
             '_' + s + y * '_' + (m - y) * ' '
         second_line = x * ' ' + '/' + \
@@ -220,10 +224,12 @@ class BSTree:
 
 if __name__ == '__main__':
     bstree = BSTree()
-    list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
+    # list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
+    file = open('treeData.txt', mode='r')
+    list_number = file.read().split(',')
+    list_number = list(map(int, list_number))
+    file.close()
     for i in list_number:
         bstree.create(i)
-    bstree.root.display()
-    tc.cprint('Delete 53.','magenta')
-    bstree.delete(53)
+    bstree.delete(29)
     bstree.root.display()

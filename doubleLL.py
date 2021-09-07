@@ -32,6 +32,7 @@ class DoubleLL:
             p = Node(data)
             p.next = self.head
             self.head.prev = p
+            self.head = p
         else:
             self.__insert(self.head, idx, data)
 
@@ -77,5 +78,5 @@ if __name__ == '__main__':
     double_link.head = Node("P")
     double_link.add('L')
     double_link.add('M')
-    double_link.delete("P")
+    double_link.insert(0,"O")
     double_link.show()

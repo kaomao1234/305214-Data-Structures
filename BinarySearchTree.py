@@ -1,6 +1,7 @@
 import pyfiglet as pg
 import termcolor as tc
-import random as rd
+import time as t
+
 
 class Node:
     def __init__(self, data=None):
@@ -231,5 +232,5 @@ if __name__ == '__main__':
     file.close()
     for i in list_number:
         bstree.create(i)
-    bstree.delete(29)
+    # bstree.delete(21)
     bstree.root.display()

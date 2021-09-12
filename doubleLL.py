@@ -38,9 +38,10 @@ class DoubleLL:
 
     def __show(self, node: Node):
         if node == None:
+            print("\n")
             return
         else:
-            print(node.data, end=" --> ")
+            print(node.data, end=" <--> ")
             self.__show(node.next)
 
     def __add(self, node: Node, data):
@@ -52,13 +53,14 @@ class DoubleLL:
         return node
 
     def __del(self, node: Node, key):
-        if node.data == key:
-            if node.next != None:
-                node.next.prev = node.prev
-            return node.next
-        else:
-            node.next = self.__del(node.next, key)
-        return node
+        if node == None:
+            return
+        elif node.next.data == key:
+            ptr = node.next.next
+            if ptr != None:
+                ptr.prev = node
+            node.next = ptr
+        self.__del(node.next, key)
 
     def __insert(self, node: Node, idx: int, data):
         if idx-1 == 0:
@@ -72,11 +74,19 @@ class DoubleLL:
             node.next = self.__insert(node.next, idx-1, data)
         return node
 
+    def __showprev(self, node: Node):
+        if node.next == None:
+            return node
+        else:
+            temp = self.__showprev(node.next)
+        return temp
+
 
 if __name__ == '__main__':
     double_link = DoubleLL()
     double_link.head = Node("P")
     double_link.add('L')
     double_link.add('M')
-    double_link.insert(0,"O")
+    double_link.add('L')
+    double_link.delete('L')
     double_link.show()

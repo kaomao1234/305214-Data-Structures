@@ -1,6 +1,4 @@
-import pyfiglet as pg
 import termcolor as tc
-import time as t
 
 
 class Node:
@@ -187,7 +185,7 @@ class BSTree:
         else:
             if node.data > data:
                 node.left = self.__create(node.left, data)
-            else:
+            elif node.data < data:
                 node.right = self.__create(node.right, data)
         return node
     
@@ -232,5 +230,7 @@ if __name__ == '__main__':
     file.close()
     for i in list_number:
         bstree.create(i)
-    # bstree.delete(21)
+    bstree.delete(26)
+    bstree.root.display()
+    bstree.delete(66)
     bstree.root.display()

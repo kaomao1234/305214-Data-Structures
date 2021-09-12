@@ -18,7 +18,7 @@ class Node:
         # No child.
         if self.right is None and self.left is None:
             real_char = '%s' % self.data
-            line = tc.colored('%s' % self.data,'green')
+            line = tc.colored('%s' % self.data, 'green')
             width = len(real_char)
             height = 1
             middle = width // 2
@@ -28,7 +28,7 @@ class Node:
         if self.right is None:
             lines, n, p, x = self.left._display_aux()
             real_char = '%s' % self.data
-            s = tc.colored('%s' % self.data,'green')
+            s = tc.colored('%s' % self.data, 'green')
             u = len(real_char)
             first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
             second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
@@ -39,7 +39,7 @@ class Node:
         if self.left is None:
             lines, n, p, x = self.right._display_aux()
             real_char = '%s' % self.data
-            s = tc.colored('%s' % self.data,'green')
+            s = tc.colored('%s' % self.data, 'green')
             u = len(real_char)
             first_line = s + x * '_' + (n - x) * ' '
             second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
@@ -50,7 +50,7 @@ class Node:
         left, n, p, x = self.left._display_aux()
         right, m, q, y = self.right._display_aux()
         real_char = '%s' % self.data
-        s = tc.colored('%s' % self.data,'green')
+        s = tc.colored('%s' % self.data, 'green')
         u = len(real_char)
         first_line = (x + 1) * ' ' + (n - x - 1) * \
             '_' + s + y * '_' + (m - y) * ' '
@@ -188,15 +188,15 @@ class BSTree:
             elif node.data < data:
                 node.right = self.__create(node.right, data)
         return node
-    
+
     def delete(self, key):
         if key == self.root.data:
             pp = Node(self.root.data+1)
             pp.left = self.root
-            self.__del(pp,key)
+            self.__del(pp, key)
             self.root = pp.left
         else:
-            self.__del(self.root,key)
+            self.__del(self.root, key)
 
     def __del(self, node, key):
         if node != None:
@@ -210,7 +210,7 @@ class BSTree:
                         return node.left
                     else:
                         rplace = self.minValNode(node.right)
-                        self.__del(node,rplace.data)
+                        self.__del(node, rplace.data)
                         rplace.left = node.left
                         rplace.right = node.right
                         return rplace
@@ -218,7 +218,6 @@ class BSTree:
                 node.left = self.__del(node.left, key)
                 node.right = self.__del(node.right, key)
         return node
-
 
 
 if __name__ == '__main__':

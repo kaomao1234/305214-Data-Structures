@@ -27,12 +27,6 @@ def bucketSort(array: list):
     return bucket
 
 
-array = [0, 3, 5, 1, 2, 19, 14, 10, 14]
+array = [0, 3, 5, 1, 2, 19, 14, 10, 14, 0.123]
 print("Sorted Array in descending order is")
 print(bucketSort(array))
-
-talk = False
-if not(talk):
-    print('---------')
-else:
-    talk = True

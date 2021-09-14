@@ -71,7 +71,7 @@ class BSTree:
         self.root = root
 
     def isleaf(self, node: Node):
-        if all(map(lambda s: s == None, (node.right, node.left))):
+        if node.right == None and node.left == None:
             return True
         else:
             return False
@@ -85,7 +85,8 @@ class BSTree:
             self.__create(self.root, data)
 
     def search(self, data):
-        return self.__search(self.root, data)
+        booleen = self.__search(self.root, data)
+        return booleen
 
     def index(self, data):
         return self.__index(self.root, data)
@@ -171,7 +172,9 @@ class BSTree:
             return self.__index(node.right, data, var+1)
 
     def __search(self, node: Node, data):
-        if node.data == data:
+        if node == None:
+            return False
+        elif node.data == data:
             return True
         elif node.data > data:
             return self.__search(node.left, data)
@@ -222,14 +225,11 @@ class BSTree:
 
 if __name__ == '__main__':
     bstree = BSTree()
-    # list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
-    file = open('treeData.txt', mode='r')
-    list_number = file.read().split(',')
-    list_number = list(map(int, list_number))
-    file.close()
+    list_number = [30,26,9,28,35,45]
+    # file = open('treeData.txt', mode='r')
+    # list_number = file.read().split(',')
+    # list_number = list(map(int, list_number))
+    # file.close()
     for i in list_number:
         bstree.create(i)
-    bstree.delete(26)
-    bstree.root.display()
-    bstree.delete(66)
     bstree.root.display()

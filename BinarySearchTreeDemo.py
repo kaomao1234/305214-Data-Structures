@@ -287,7 +287,7 @@ class BSTree:
 
 if __name__ == '__main__':
     bstree = BSTree()
-    list_number = [25, 8, 53, 4, 42, 37, 31, 39, 86, 64, 99]
+    list_number = [30,26,9,28,35,45]
     # file = open('treeData.txt', mode='r')
     # list_number = file.read().split(',')
     # list_number = list(map(int, list_number))
@@ -295,7 +295,7 @@ if __name__ == '__main__':
     for i in list_number:
         bstree.create(i)
     bstree.root.display()
-    bstree.del2(53)
+    bstree.delete(26)
     bstree.root.display()
 
 

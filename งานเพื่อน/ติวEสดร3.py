@@ -143,4 +143,5 @@ if __name__ == '__main__':
         bstree.insert(i)
     bstree.root.display()
     bstree.delete(53)
+    bstree.delete(42)
     bstree.root.display()

@@ -1,13 +1,16 @@
+import heapq
 import termcolor as tc
+import math
+
 
 class HeapNode:
     def __init__(self, data=None):
         self.data = data
         self.left = None
         self.right = None
-    # * Display Tree form in Terminal
 
     def display(self):
+        # * Display Tree form in Terminal
         lines, *_ = self._display_aux()
         for line in lines:
             print(line)
@@ -67,28 +70,44 @@ class HeapNode:
 
 class HeapTree:
     def __init__(self):
-        self.root = HeapNode(16)
+        self.array = None
+        self.root = None
+        self.order_node = 0
 
     def reheap(self):
         pass
 
     def insert(self, data):
-        self.__insert(self.root, data)
-
-    def __insert(self, node: HeapNode, data):
-        newNode = HeapNode(data)
-        if node!= None:
-            if node.left == None:
-                node.left = self.__insert(node.left,data)
-            elif node.right == None:
-                node.right = self.__insert(node.right,data)
-            
+        if self.root == None:
+            self.root = HeapNode(data)
+            self.order_node += 1
         else:
-            return newNode
-        return node
+            self.__insert(self.root, data)
+
+    def mark_traversal(self, data):
+        way_lst = []
+        if self.array.index(data) > 0:
+            dot = self.array.index(data)+1
+            while dot >= 2:
+                dot = dot/2
+                way_lst.append(math.floor(dot))
+                # way_lst.append(dot)
+            return way_lst[::-1]
+        else:
+            return 1
+
+    def __insert(self, node: HeapNode, data,c=0):
+        mapping = self.mark_traversal(data)
+        # print(mapping)
+        idx_node = self.array.index(node.data)+1
+        print(mapping)
+
+
 # array = [14, 10, 8, 7, 6, 9, 3, 2, 4, 1]
-array = [14, 10, 8, 7, 6]
+array = [16, 14, 10, 8, 7]
 ht = HeapTree()
+ht.array = array
 for i in array:
     ht.insert(i)
-ht.root.display()
+    # print(ht.mark_traversal(i))
+# ht.root.display()

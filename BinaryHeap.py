@@ -96,10 +96,21 @@ class HeapTree:
         self.__search(self.root, data, boolean)
         return boolean[0]
 
+    def isleaf(self, node: HeapNode):
+        if node.left == None and node.right == None:
+            return True
+        else:
+            return False
+
+    def isbinary(self, node: HeapNode):
+        if node.left != None and node.right != None:
+            return True
+        else:
+            return False
+
     def delete(self, key):
-        m = self.del_lastnode(self.root)
-        if key != m:
-            self.__delete(self.root, key, m)
+        self.__delete(self.root, key)
+        self.reheap(self.root)
 
     def min_node(self, *args):
         c = sorted(args, key=lambda s: s.data)
@@ -192,49 +203,48 @@ class HeapTree:
             elif m % 2 != 0:
                 self.__max_insert(node.right, temp, c+1)
 
-    def __delete(self, node: HeapNode, key, pivot):
+    def __delete(self, node: HeapNode, key):
         if node != None:
             if node.data == key:
-                node.data = pivot
-                if node.left != None and node.right != None:
-                    if self.max_node(node, node.left, node.right) == pivot:
-                        if node.left.data < node.right.data:
-                            node.data = node.left.data
-                            node.left.data = pivot
-                            self.__delete(node.left, pivot, pivot)
-                        elif node.right.data < node.left.data:
-                            node.data = node.right.data
-                            node.right.data = pivot
-                            self.__delete(node.right, pivot, pivot)
-                    elif node.left.data < pivot:
-                        node.data = node.left.data
-                        node.left.data = pivot
-                    elif node.right.data < pivot:
-                        node.data = node.right.data
-                        node.right.data = pivot
-                elif node.right == None:
-                    if node.left.data < pivot:
-                        node.data = node.left.data
-                        node.left.data = pivot
-                elif node.left == None:
-                    if node.right.data < pivot:
-                        node.data = node.right.data
-                        node.right.data = pivot
+                node.data = self.del_lastnode(self.root)
             else:
-                self.__delete(node.left, key, pivot)
-                self.__delete(node.right, key, pivot)
+                self.__delete(node.left, key)
+                self.__delete(node.right, key)
+
+    def reheap(self, node: HeapNode):
+        if node != None:
+            if self.isbinary(node) == True:
+                temp = node.data
+                if node.data > self.max_node(node.left, node.right).data:
+                    get_node = self.min_node(node.left, node.right)
+                    node.data = get_node.data
+                    get_node.data = temp
+                    self.reheap(get_node)
+                else:
+                    self.reheap(node.left)
+                    self.reheap(node.right)
+            else:
+                if node.left != None and self.max_node(node, node.left) == node:
+                    temp = node.data
+                    node.data = node.left.data
+                    node.left.data = temp
+                elif node.right != None and self.max_node(node, node.right) == node:
+                    temp = node.data
+                    node.data = node.right.data
+                    node.right.data = temp
 
 
-# array = [10, 33, 24, 42, 56, 38, 99, 74, 51, 60, 21]
-file = open(
-    'C:/Users/borip/Documents/GitHub/305214-Data-Structures/treeData.txt', mode='r')
-array = file.read().split(',')
-array = list(map(int, array))
-file.close()
+array = [10, 33, 24, 42, 56, 38, 99, 74, 51, 60, 21]
+# file = open(
+#     'C:/Users/borip/Documents/GitHub/305214-Data-Structures/treeData.txt', mode='r')
+# array = file.read().split(',')
+# array = list(map(int, array))
+# file.close()
 ht = HeapTree()
 for i in array:
     ht.insert(i)
-# ht.delete(38)
+ht.root.display()
+ht.delete(38)
 ht.root.display()
 # ht.delete(33)
 # ht.root.display()

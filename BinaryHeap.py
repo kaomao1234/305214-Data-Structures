@@ -79,7 +79,7 @@ class HeapTree:
         else:
             if self.search(data) == False:
                 self.order_node += 1
-                self.__min_insert(self.root, data)
+                self.__max_insert(self.root, data)
             else:
                 print("{} is already in heap.".format(data))
 
@@ -234,7 +234,7 @@ class HeapTree:
                     node.right.data = temp
 
 
-array = [10, 33, 24, 42, 56, 38, 99, 74, 51, 60, 21]
+array = [10,34,24,3,66,47,18,8,26,55,82,29,32,17,6,72]
 # file = open(
 #     'C:/Users/borip/Documents/GitHub/305214-Data-Structures/treeData.txt', mode='r')
 # array = file.read().split(',')
@@ -243,8 +243,6 @@ array = [10, 33, 24, 42, 56, 38, 99, 74, 51, 60, 21]
 ht = HeapTree()
 for i in array:
     ht.insert(i)
-ht.root.display()
-ht.delete(38)
 ht.root.display()
 # ht.delete(33)
 # ht.root.display()

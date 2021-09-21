@@ -76,6 +76,18 @@ class BSTree:
         else:
             return False
 
+    def find_level(self):
+        lst_level = []
+        self.__findlevel(self.root, lst_level)
+        print("The highest level : ", lst_level[len(lst_level)-1])
+        return lst_level[len(lst_level)-1]
+        
+    def all_node(self):
+        count = []
+        self.__allOfNode(self.root, count)
+        print("All node : ", len(count))
+        return len(count)
+
     def create(self, data):
         if self.root == None:
             self.root = Node(data)
@@ -163,6 +175,19 @@ class BSTree:
         else:
             return self.minValNode(node.left, var)
 
+    def __findlevel(self, node: Node, lst_level: list, c=1):
+        if node != None:
+            if c not in lst_level:
+                lst_level.append(c)
+            self.__findlevel(node.left, lst_level, c+1)
+            self.__findlevel(node.right, lst_level, c+1)
+
+    def __allOfNode(self, node, c: list):
+        if node != None:
+            c.append(node.data)
+            self.__allOfNode(node.left, c)
+            self.__allOfNode(node.right, c)
+
     def __index(self, node: Node, data, var=0):
         if node.data == data:
             return node
@@ -232,4 +257,6 @@ if __name__ == '__main__':
     file.close()
     for i in list_number:
         bstree.create(i)
-    bstree.root.display()
+    # bstree.root.display()
+    bstree.find_level()
+    bstree.all_node()

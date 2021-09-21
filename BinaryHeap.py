@@ -234,7 +234,7 @@ class HeapTree:
                     node.right.data = temp
 
 
-array = [10,34,24,3,66,47,18,8,26,55,82,29,32,17,6,72]
+array = [10, 34, 24, 3, 66, 47, 18, 8, 26, 55, 82, 29, 32, 17, 6, 72]
 # file = open(
 #     'C:/Users/borip/Documents/GitHub/305214-Data-Structures/treeData.txt', mode='r')
 # array = file.read().split(',')

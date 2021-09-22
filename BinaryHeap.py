@@ -110,7 +110,7 @@ class HeapTree:
 
     def delete(self, key):
         self.__delete(self.root, key)
-        self.reheap(self.root)
+        self.min_reheap(self.root)
 
     def min_node(self, *args):
         c = sorted(args, key=lambda s: s.data)
@@ -211,7 +211,7 @@ class HeapTree:
                 self.__delete(node.left, key)
                 self.__delete(node.right, key)
 
-    def reheap(self, node: HeapNode):
+    def min_reheap(self, node: HeapNode):
         if node != None:
             if self.isbinary(node) == True:
                 temp = node.data
@@ -219,10 +219,10 @@ class HeapTree:
                     get_node = self.min_node(node.left, node.right)
                     node.data = get_node.data
                     get_node.data = temp
-                    self.reheap(get_node)
+                    self.min_reheap(get_node)
                 else:
-                    self.reheap(node.left)
-                    self.reheap(node.right)
+                    self.min_reheap(node.left)
+                    self.min_reheap(node.right)
             else:
                 if node.left != None and self.max_node(node, node.left) == node:
                     temp = node.data
@@ -233,7 +233,7 @@ class HeapTree:
                     node.data = node.right.data
                     node.right.data = temp
 
-
+    
 array = [10, 34, 24, 3, 66, 47, 18, 8, 26, 55, 82, 29, 32, 17, 6, 72]
 # file = open(
 #     'C:/Users/borip/Documents/GitHub/305214-Data-Structures/treeData.txt', mode='r')
@@ -244,5 +244,3 @@ ht = HeapTree()
 for i in array:
     ht.insert(i)
 ht.root.display()
-# ht.delete(33)
-# ht.root.display()

@@ -122,6 +122,6 @@ class BHeap:
 
 
 ht = BHeap()
-for i in range(0, 63):
+for i in range(0, 20):
     ht.insert(i)
 ht.root.display()

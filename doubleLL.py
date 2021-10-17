@@ -85,8 +85,8 @@ class DoubleLL:
 if __name__ == '__main__':
     double_link = DoubleLL()
     double_link.head = Node("P")
-    double_link.add('L')
     double_link.add('M')
+    double_link.add('L')
     double_link.add('L')
     double_link.delete('L')
     double_link.show()

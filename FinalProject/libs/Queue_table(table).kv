@@ -1,0 +1,54 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+<QueueTabelScreen@MDScreen>:
+    black:get_color_from_hex("#000000")
+    md_bg_color:get_color_from_hex("#FFFFFF")
+    white:get_color_from_hex("#FFFFFF")
+    my_font_name:'SukhumvitSet-Medium'
+    MDBoxLayout:
+        orientation:'vertical'
+        MDToolbar:
+            title:"CafeHeap"
+            halign:'center'
+            md_bg_color:root.white
+            specific_text_color:root.black
+        MDSeparator:
+            height: "2dp"
+            md_bg_color:root.black
+        MDBottomNavigation:
+            panel_color:root.white
+            MDBottomNavigationItem:
+                name: 'table'
+                text: 'Book'
+                text_color_normal:root.black
+                text_color_active:root.black
+                ScrollView:
+                    MDGridLayout:
+                        id:shop_view
+                        size_hint_y:None
+                        height:self.minimum_height
+                        row_default_height: 140
+                        cols:1
+                        md_bg_color:root.white
+                # Label:
+                #     text: 'ShowTable'
+                #     halign: 'center'
+                #     font_size: 20
+                #     color:root.black
+                #     font_name:root.my_font_name
+                MDSeparator:
+                    height: "2dp"
+                    md_bg_color:root.black
+            MDBottomNavigationItem:
+                name: 'bill'
+                text: 'Checkbill'
+                text_color_normal:root.black
+                text_color_active:root.black
+                # Label:
+                #     text: 'checkbill'
+                #     halign: 'center'
+                #     font_size: 20
+                #     color:root.black
+                #     font_name:root.my_font_name
+                MDSeparator:
+                    height: "2dp"
+                    md_bg_color:root.black

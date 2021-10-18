@@ -1,8 +1,60 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
+<TableCard@MDCard+ButtonBehavior>:
+    orientation: "vertical"
+    focus_behavior: True
+    ripple_behavior: True
+    my_font_name:'SukhumvitSet-Medium'
+    black:get_color_from_hex("#000000")
+    num_table:''
+    on_press:print(self.focus_behavior)
+    canvas:
+        Color:
+            rgba: get_color_from_hex("#000000")
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+    MDBoxLayout:
+        orientation:'horizontal'
+        MDIcon:
+            halign: "center"
+            icon: "food-fork-drink"
+            size_hint_x:None
+        Label:
+            markup:True
+            font_size: 20
+            font_name:root.my_font_name
+            color:root.black
+            halign:'left'
+            text:'โต๊ะ {}'.format(root.num_table)
+            text_size:self.size
+            valign:'center'
+    MDSeparator:
+        height: "2dp"
+        md_bg_color:root.black
+    MDBoxLayout:
+        orientation: 'horizontal'
+        Label:
+            markup:True
+            font_name:root.my_font_name
+            color:root.black
+            text:'จำนวนคน'
+            halign:'left'
+            font_size: 20
+        Label:
+            markup:True
+            font_name:root.my_font_name
+            color:root.black
+            text:'0/6'
+            halign:'center'
+            font_size: 20
+            text_size:self.size
+            valign:'center'
+                            
 <Container@MDBoxLayout>:
     md_bg_color:get_color_from_hex("#000000")
     my_font_name:'SukhumvitSet-Medium'
     black:get_color_from_hex("#000000")
+    white:get_color_from_hex("#FFFFFF")
     ScreenManager:
         id:container_manager
         MDScreen:
@@ -36,6 +88,7 @@
                         size_hint_y:None
                         height:39
                         MDTextField:
+                            id:text_num_table
                             size_hint_y:None
                             size_hint_x:None
                             line_color_normal:root.black

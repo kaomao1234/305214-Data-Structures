@@ -7,18 +7,51 @@
     MDBoxLayout:
         orientation:'vertical'
         MDToolbar:
+            elevation: 10
             title:"CafeHeap"
-            halign:'center'
+            # halign:'center'
             md_bg_color:root.white
             specific_text_color:root.black
+            left_action_items: [["arrow-left-thick", lambda x : root.switch_sc()]]
         MDSeparator:
             height: "2dp"
             md_bg_color:root.black
         ScreenManager:
+            id:queue_and_bill
             MDScreen:
                 name:'screen_1'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    padding:[15,15]
+                    ScrollView:
+                        MDGridLayout:
+                            id:table_view
+                            size_hint_y:None
+                            height:self.minimum_height
+                            row_default_height: 95
+                            cols:1
+                            padding:[0,2]
+                            spacing: '10dp'
             MDScreen:
                 name:'screen_2'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    padding:[15,15]
+                    ScrollView:
+                        MDGridLayout:
+                            id:checkbill_view
+                            size_hint_y:None
+                            height:self.minimum_height
+                            row_default_height: 93
+                            cols:1
+                            MDLabel:
+                                text:'เช็คบิล'
+                                font_size:20
+                                font_name:root.my_font_name
+                            MDLabel:
+                                text:'โต๊ะ 4'
+                                font_size:20
+                                font_name:root.my_font_name
         MDSeparator:
             height: "2dp"
             md_bg_color:root.black
@@ -26,15 +59,27 @@
             size_hint_y: None
             height:49
             orientation: 'horizontal'
-            Button:
-                text:'จองโต๊ะ'
-                font_size:20
-                # background_color:0,0,0,0
-                foreground_color:root.black
-                font_name:root.my_font_name
-            Button:
-                text:'เช็คบิล'
-                font_size:20
-                font_name:root.my_font_name
-                # background_color:0,0,0,0
-                foreground_color:root.black
+            AnchorLayout:
+                anchor_x: 'center'
+                MDFlatButton:
+                    text:'จองโต๊ะ'
+                    font_size:20
+                    theme_text_color: "Custom"
+                    text_color:root.black
+                    font_name:root.my_font_name
+                    on_press:
+                        root.ids.queue_and_bill.transition.direction = 'right'
+                        root.ids.queue_and_bill.transition.duration = 0.2
+                        root.ids.queue_and_bill.current = 'screen_1'
+            AnchorLayout:
+                anchor_x: 'center'
+                MDFlatButton:
+                    theme_text_color: "Custom"
+                    text_color:root.black
+                    text:'เช็คบิล'
+                    font_size:20
+                    font_name:root.my_font_name
+                    on_press:
+                        root.ids.queue_and_bill.transition.direction = 'left'
+                        root.ids.queue_and_bill.transition.duration = 0.2
+                        root.ids.queue_and_bill.current = 'screen_2'

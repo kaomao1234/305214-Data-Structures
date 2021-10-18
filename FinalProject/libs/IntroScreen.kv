@@ -1,4 +1,30 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
+<MenuCard@MDCard>:
+    orientation:'horizontal'
+    my_font_name:'SukhumvitSet-Medium'
+    menu_name:''
+    value:''
+    black:get_color_from_hex("#000000")
+    my_font_name:'SukhumvitSet-Medium'
+    canvas:
+        Color:
+            rgba: get_color_from_hex("#000000")
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+    Label:
+        text:'{}    {}bath'.format(root.menu_name,root.value)
+        markup:True
+        font_size: 20
+        color:root.black
+        text_size:self.size
+        halign:'center'
+        valign:'center'
+        font_name:root.my_font_name
+    MDCheckbox:
+        id:check_box
+        size_hint:None,None
+        size:dp(60),dp(60)
 <TableCard@MDCard+ButtonBehavior>:
     orientation: "vertical"
     focus_behavior: True
@@ -6,7 +32,7 @@
     my_font_name:'SukhumvitSet-Medium'
     black:get_color_from_hex("#000000")
     num_table:''
-    on_press:print(self.focus_behavior)
+    on_press:root.on_focus()
     canvas:
         Color:
             rgba: get_color_from_hex("#000000")
@@ -49,7 +75,6 @@
             font_size: 20
             text_size:self.size
             valign:'center'
-                            
 <Container@MDBoxLayout>:
     md_bg_color:get_color_from_hex("#000000")
     my_font_name:'SukhumvitSet-Medium'

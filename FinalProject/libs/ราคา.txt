@@ -1,0 +1,14 @@
+เมนู 
+    Hot    ICED   FRAPPE
+เอสเปรสโซ (Espressso) 			 35	 55      60 
+คาปูชิโน (Cappuccino)			 45	 60 	 65 
+ลาเต้ (Latte) 					 50	 65      70 
+ทอคค่า (Mocha) 				 50	 65      70 
+ชา (Tea) 					 40 	  -	 - 
+ชาเขียวนม( Green Tea with Milk) 		 40	 50      55
+ชานม (Tea with mik) 			 40	 45      50 
+ชามะนาว (Lemon tea) 			  - 	 45	 – 
+ชาดำ(BIack Tea) 				  - 	 35 	 – 
+คาร์คช็อกโกแลต (Dark Chocolate) 		  -	 55	 – 
+นมสด (Fresh milk)				 35 	 45     50
+ ช็อกโกแลต (Chocotate) 			 40 	 50 	55

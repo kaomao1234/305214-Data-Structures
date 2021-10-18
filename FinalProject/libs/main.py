@@ -19,13 +19,28 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.uix.behaviors import ButtonBehavior
-for i in ['introScreen', 'Queue_table(table)']:
+for i in ['introScreen', 'Queue_table(table)','Queue_table(menu)']:
     Builder.load_file(f"{i}.kv")
-
+class MenuCard(MDCard):
+    menu_name = StringProperty()
+    value = NumericProperty()
+    
 
 class TableCard(MDCard,ButtonBehavior):
     num_table = NumericProperty()
+    def __init__(self,root,**kw):
+        super(TableCard, self).__init__(**kw)
+        self.root = root
+        self.container_manager = self.root.ids.container_manager
+        # self.menu_view = self.root.ids.menu_id.ids.menu_view
+        # self.check_id_lst = [i.ids.check_box for i in self.menu_view.children]
 
+    def on_focus(self):
+        # for i in self.check_id_lst:
+        #     i.active = False
+        self.container_manager.transition.direction = 'left'
+        self.container_manager.transition.duration = 0.2
+        self.container_manager.current = 'menu_screen'
 
 class MainScreen(MDBoxLayout):
     def __init__(self, **kw):
@@ -37,6 +52,7 @@ class Container(MDBoxLayout):
     def __init__(self, **kw):
         super(Container, self).__init__(**kw)
         # self.ids.text_num_table.bind(text=)
+        self.container_manager = self.ids.container_manager
         self.add_layout()
 
     def on_table_num_error(self):
@@ -49,40 +65,60 @@ class Container(MDBoxLayout):
         dialog.open()
 
     def add_layout(self):
-        q_table_screen = QueueTabelScreen
+        q_table_screen = QueueTableScreen
+        menu_screen = MenuScreen
+        self.ids[menu_screen.id] = menu_screen(self)
         self.ids[q_table_screen.id] = q_table_screen(self)
-        self.ids.container_manager.add_widget(self.ids[q_table_screen.id])
+        self.container_manager.add_widget(self.ids[q_table_screen.id])
+        self.container_manager.add_widget(self.ids[menu_screen.id])
 
     def next_sc(self):
         queuetable = self.ids.queuetable
         text_num_table = self.ids.text_num_table
         if text_num_table.text.isnumeric():
-            self.ids.container_manager.transition.direction = 'left'
-            self.ids.container_manager.transition.duration = 0.2
-            self.ids.container_manager.current = 'queuetable'
-            for i in range(1, int(self.ids.text_num_table.text)+1):
-                queuetable.ids.table_view.add_widget(TableCard(num_table=i))
+            self.container_manager.transition.direction = 'left'
+            self.container_manager.transition.duration = 0.2
+            self.container_manager.current = 'queuetable'
+            for i in range(1, int(text_num_table.text)+1):
+                queuetable.ids.table_view.add_widget(TableCard(self,num_table=i))
             text_num_table.text = ''
         else:
             self.on_table_num_error()
 
 
-class QueueTabelScreen(MDScreen):
+class QueueTableScreen(MDScreen):
     id = 'queuetable'
 
     def __init__(self, root, **kw):
-        super(QueueTabelScreen, self).__init__(**kw)
+        super(QueueTableScreen, self).__init__(**kw)
         self.name = 'queuetable'
         self.root = root
+        self.table_view = self.ids.table_view
+        self.menu_view = self.root.ids.menu_id.ids.menu_view
 
 
     def switch_sc(self):
-        self.ids.table_view.clear_widgets()
+        self.table_view.clear_widgets()
         self.manager.transition.direction = 'right'
         self.manager.transition.duration = 0.2
         self.manager.current = 'intro'
 
-
+class MenuScreen(MDScreen):
+    id='menu_id'
+    def __init__(self,root,**kw):
+        super(MenuScreen, self).__init__(**kw)
+        self.root= root
+        self.name = 'menu_screen'
+        self.container_manager = self.root.ids.container_manager
+        for i in range(1,10):
+            self.ids.menu_view.add_widget(MenuCard(menu_name='menu',value=i))
+        self.check_box_id = [i.ids.check_box for i in self.ids.menu_view.children]
+    def switch_sc(self):
+        for i in self.check_box_id:
+            i.active = False
+        self.container_manager.transition.direction = 'right'
+        self.container_manager.transition.duration = 0.2
+        self.container_manager.current = 'queuetable'
 class CafeHeap(MDApp):
     def build(self):
         mc = MainScreen(padding=[20, 20])

@@ -7,6 +7,9 @@ from pprint import pprint
 
 class CafeHeap:
     def __init__(self):
+        self.refresh_run()
+
+    def refresh_run(self):
         self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
         self.menu = {i: random.randint(20, 50)
                      for i in range(1, 11)}
@@ -17,6 +20,7 @@ class CafeHeap:
         self.sheet_menu.field_names = ["Menu", "Value"]
         self.sheet_table.field_names = ["โต๊ะ", 'สถานะ']
         self.multi_back_run()
+        self.run()
 
     def multi_back_run(self):
         task = [self.config_menu, self.config_node]
@@ -65,7 +69,6 @@ class CafeHeap:
                     self.pre_info_customers.update(customer_info)
                     pprint(self.pre_info_customers)
                 elif acception in ['n', 'N']:
-                    # self.run()
                     return
             else:
                 print('โต๊ะ {} เต็มแล้ว'.format(res_table).center(50))
@@ -99,11 +102,14 @@ class CafeHeap:
     def run(self):
         while True:
             # os.system('cls||clear')
-            choice = int(input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง".format("-"*50)))
+            choice = int(
+                input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง\n --> ".format("-"*50)))
             if choice == 1:
                 self.res_fuction()
             elif choice == 2:
                 self.checkbill()
+            elif choice == 3:
+                self.refresh_run()
             else:
                 print('กรุณาเลือกตัวเลือก')
 

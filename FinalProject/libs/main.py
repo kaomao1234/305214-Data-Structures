@@ -43,10 +43,10 @@ class Container(MDBoxLayout):
         content = MDBoxLayout(orientation='vertical', size_hint_y=None)
         content.add_widget(Label(text='ใส่ได้เฉพาะตัวเลขเท่านั้น !!!',
                            font_name=self.my_font_name, markup=True, color=self.black, font_size=20))
-        self.dialog = MDDialog(title="User error !!!",
+        dialog = MDDialog(title="User error !!!",
                                content_cls=content, radius=[20, 7, 20, 7],
                                type='custom')
-        self.dialog.open()
+        dialog.open()
 
     def add_layout(self):
         q_table_screen = QueueTabelScreen

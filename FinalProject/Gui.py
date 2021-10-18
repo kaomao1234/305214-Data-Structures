@@ -10,7 +10,7 @@ class CafeHeap:
         self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
         self.menu = {i: random.randint(20, 50)
                      for i in range(1, 11)}
-        self.table_detail = {i: "ว่าง" for i in range(1, self.num_of_table)}
+        self.table_detail = {i: "ว่าง" for i in range(1, self.num_of_table+1)}
         self.pre_info_customers = {}
         self.sheet_menu = pt()
         self.sheet_table = pt()
@@ -41,6 +41,7 @@ class CafeHeap:
         print(free_table_sheet)
 
     def choose_menu(self, cus_info: dict, table_no: int):
+        cus_info[table_no]['จำนวนคน'] = int(input('กรูณาระบุจำนวนคน : '))
         print(self.sheet_menu)
         print("กรุณาเลือกเมนู\nหากเสร็จสิ้นแล้วพิมพ์ y:")
         while True:
@@ -63,8 +64,9 @@ class CafeHeap:
                     self.choose_menu(customer_info, res_table)
                     self.pre_info_customers.update(customer_info)
                     pprint(self.pre_info_customers)
-                else:
-                    self.run()
+                elif acception in ['n', 'N']:
+                    # self.run()
+                    return
             else:
                 print('โต๊ะ {} เต็มแล้ว'.format(res_table).center(50))
                 self.run()
@@ -72,14 +74,38 @@ class CafeHeap:
             print('โต๊ะนี้ไม่มีอยู่ในลิสต์'.center(50))
             self.run()
 
+    def checkbill(self):
+        bill_sheet = pt()
+        bill_sheet.field_names = ["โต๊ะ", 'ราคาทั้งหมด']
+        for i in self.pre_info_customers:
+            vale = sum([k for (i, k) in self.pre_info_customers[i]
+                       ['รายการที่สั่ง'].items()])
+            bill_sheet.add_row([f"{i}", "{}".format(vale)])
+            print(bill_sheet)
+        while True:
+            table = int(input("ระบุโต๊ะที่ต้องการ : \n"))
+            receipt = pt()
+            cus_table = self.pre_info_customers[table]['รายการที่สั่ง']
+            receipt.field_names = [f"โต๊ะ {table}"]
+            for (menu, cost) in cus_table.items():
+                receipt.add_row(["{} {}".format(menu, cost)])
+            receipt.add_row(['ราคาทั้งหมด {}'.format(
+                sum([k for (i, k) in cus_table.items()]))])
+            print(receipt)
+            self.table_detail[table] = 'ว่าง'
+            if input('พิมพ์ Y หากต้องการดำเนินการต่อ หรือ N หากต้องการหยุด :\n') in ['n', 'N']:
+                break
+
     def run(self):
         while True:
             # os.system('cls||clear')
-            choice = int(input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n".format("-"*50)))
+            choice = int(input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง".format("-"*50)))
             if choice == 1:
                 self.res_fuction()
+            elif choice == 2:
+                self.checkbill()
             else:
-                break
+                print('กรุณาเลือกตัวเลือก')
 
 
 obj = CafeHeap()

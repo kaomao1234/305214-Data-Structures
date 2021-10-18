@@ -14,41 +14,27 @@
         MDSeparator:
             height: "2dp"
             md_bg_color:root.black
-        MDBottomNavigation:
-            panel_color:root.white
-            MDBottomNavigationItem:
-                name: 'table'
-                text: 'Book'
-                text_color_normal:root.black
-                text_color_active:root.black
-                ScrollView:
-                    MDGridLayout:
-                        id:shop_view
-                        size_hint_y:None
-                        height:self.minimum_height
-                        row_default_height: 140
-                        cols:1
-                        md_bg_color:root.white
-                # Label:
-                #     text: 'ShowTable'
-                #     halign: 'center'
-                #     font_size: 20
-                #     color:root.black
-                #     font_name:root.my_font_name
-                MDSeparator:
-                    height: "2dp"
-                    md_bg_color:root.black
-            MDBottomNavigationItem:
-                name: 'bill'
-                text: 'Checkbill'
-                text_color_normal:root.black
-                text_color_active:root.black
-                # Label:
-                #     text: 'checkbill'
-                #     halign: 'center'
-                #     font_size: 20
-                #     color:root.black
-                #     font_name:root.my_font_name
-                MDSeparator:
-                    height: "2dp"
-                    md_bg_color:root.black
+        ScreenManager:
+            MDScreen:
+                name:'screen_1'
+            MDScreen:
+                name:'screen_2'
+        MDSeparator:
+            height: "2dp"
+            md_bg_color:root.black
+        MDBoxLayout:
+            size_hint_y: None
+            height:49
+            orientation: 'horizontal'
+            Button:
+                text:'จองโต๊ะ'
+                font_size:20
+                # background_color:0,0,0,0
+                foreground_color:root.black
+                font_name:root.my_font_name
+            Button:
+                text:'เช็คบิล'
+                font_size:20
+                font_name:root.my_font_name
+                # background_color:0,0,0,0
+                foreground_color:root.black

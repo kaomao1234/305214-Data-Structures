@@ -8,7 +8,7 @@ Config.set('graphics', 'minimum_width', '360')
 Config.set('graphics', 'minimum_height', '640')
 Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'multisamples', '0')
-from kivymd.uix.button import MDRoundFlatButton, MDFlatButton
+from kivymd.uix.button import MDRoundFlatButton, MDFlatButton,MDRaisedButton
 from kivy.uix.label import Label
 from kivymd.uix.dialog import MDDialog
 from kivy.properties import StringProperty, NumericProperty
@@ -17,6 +17,7 @@ from kivy.utils import get_color_from_hex
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.lang import Builder
+from kivymd.uix.textfield import MDTextField
 from kivymd.app import MDApp
 from kivy.uix.behaviors import ButtonBehavior
 for i in ['introScreen', 'Queue_table(table)','Queue_table(menu)']:
@@ -32,15 +33,25 @@ class TableCard(MDCard,ButtonBehavior):
         super(TableCard, self).__init__(**kw)
         self.root = root
         self.container_manager = self.root.ids.container_manager
-        # self.menu_view = self.root.ids.menu_id.ids.menu_view
-        # self.check_id_lst = [i.ids.check_box for i in self.menu_view.children]
-
+    
+    def num_customer(self):
+        num_cus_textfield = MDTextField(size_hint_y=None,size_hint_x=None,width=35,mod='rectangle')
+        dialog = MDDialog(title="ระบุจำนวนคน", radius=[20, 7, 20, 7],
+                            type='custom')
+        content = MDBoxLayout(orientation='vertical', size_hint_y=None)
+        content.add_widget(Label(text='เพิ่มไม่เกิน 6 คน',
+                           font_name=self.my_font_name, markup=True, color=(255,0,0), font_size=20))
+        content.add_widget(num_cus_textfield)
+        content.add_widget(MDRaisedButton(text='OK',))
+        content.add_widget(MDFlatButton("Cancel",text_color=(255,0,0),on_press=lambda *e: dialog.dismiss()))
+        dialog.content_cls = content
+        dialog.open()
     def on_focus(self):
-        # for i in self.check_id_lst:
-        #     i.active = False
+        self.num_customer()
         self.container_manager.transition.direction = 'left'
         self.container_manager.transition.duration = 0.2
         self.container_manager.current = 'menu_screen'
+    
 
 class MainScreen(MDBoxLayout):
     def __init__(self, **kw):
@@ -55,15 +66,15 @@ class Container(MDBoxLayout):
         self.container_manager = self.ids.container_manager
         self.add_layout()
 
-    def on_table_num_error(self):
+    def on_table_num_error(self,text:str):
         content = MDBoxLayout(orientation='vertical', size_hint_y=None)
-        content.add_widget(Label(text='ใส่ได้เฉพาะตัวเลขเท่านั้น !!!',
+        content.add_widget(Label(text=text,
                            font_name=self.my_font_name, markup=True, color=self.black, font_size=20))
         dialog = MDDialog(title="User error !!!",
                                content_cls=content, radius=[20, 7, 20, 7],
                                type='custom')
         dialog.open()
-
+        
     def add_layout(self):
         q_table_screen = QueueTableScreen
         menu_screen = MenuScreen
@@ -75,15 +86,17 @@ class Container(MDBoxLayout):
     def next_sc(self):
         queuetable = self.ids.queuetable
         text_num_table = self.ids.text_num_table
-        if text_num_table.text.isnumeric():
+        if text_num_table.text.isnumeric() and int(text_num_table.text) > 21:
+            self.on_table_num_error("ใส่ได้ไม่เกิน 20 โต๊ะ")
+        elif text_num_table.text.isnumeric() == False:
+            self.on_table_num_error("ใส่ได้เฉพาะตัวเลขที่นั้้น")
+        elif text_num_table.text.isnumeric() and int(text_num_table.text)<21:
             self.container_manager.transition.direction = 'left'
             self.container_manager.transition.duration = 0.2
             self.container_manager.current = 'queuetable'
             for i in range(1, int(text_num_table.text)+1):
                 queuetable.ids.table_view.add_widget(TableCard(self,num_table=i))
             text_num_table.text = ''
-        else:
-            self.on_table_num_error()
 
 
 class QueueTableScreen(MDScreen):

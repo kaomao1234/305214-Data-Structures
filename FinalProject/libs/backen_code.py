@@ -11,6 +11,7 @@ class Lnode:
 class Hnode:
     def __init__(self, data=None, left=None, right=None):
         self.data = data
+        self.info = {data:{'สถานะ':'ว่าง'}}
         self.left = left
         self.right = right
 
@@ -135,7 +136,16 @@ class BinaryHeap:
             return self.way_arrow(plot_point, list_of_direct)
         else:
             return list_of_direct[::-1]
-
+    def get_node_info(self,data):
+        lst = []
+        self.__get_node_info__(self.head, data,lst)
+        return lst[0]
+    def __get_node_info__(self,node: Hnode,data,lst):
+        if node!= None:
+            if node.data == data:
+                lst.append(node.info)
+            self.__get_node_info__(node.left,data,lst)
+            self.__get_node_info__(node.right, data, lst)
     def insert(self, data):
         if self.head == None:
             self.head = Hnode(data)
@@ -201,10 +211,10 @@ class BinaryHeap:
     
     def delete(self,key):
         self.__delete(self.head, key)
-obj = BinaryHeap()
-for i in range(0, 10):
-    obj.insert(i)
-obj.head.display()
-pprint(obj.delete(8))
-obj.head.display()
-# pprint()
+# obj = BinaryHeap()
+# for i in range(0, 10):
+#     obj.insert(i)
+# obj.head.display()
+# pprint(obj.delete(8))
+# obj.head.display()
+# # pprint()

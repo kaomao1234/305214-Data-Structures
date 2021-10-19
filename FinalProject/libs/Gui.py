@@ -2,7 +2,7 @@ from prettytable import PrettyTable as pt
 import random
 from threading import Thread
 import os
-from backen_code import Hnode, BinaryHeap
+from backen_code import Hnode, BinaryHeap,LinkedList
 from pprint import pprint
 
 
@@ -15,6 +15,7 @@ class CafeHeap:
         self.menu = {i: random.randint(20, 50)
                      for i in range(1, 11)}
         self.bin_heap = BinaryHeap()
+        self.linkList = LinkedList()
         self.table_detail = {}
         for i in range(1, self.num_of_table+1):
             self.table_detail[i] = 'ว่าง'
@@ -113,6 +114,7 @@ class CafeHeap:
                     self.choose_menu(customer_info, res_table)
                     self.update_info_hnode(
                         customer_info[res_table], res_table, self.bin_heap.head)
+                    self.linkList.add(res_table)
                 elif acception in ['n', 'N']:
                     return
             else:
@@ -149,6 +151,7 @@ class CafeHeap:
                 print("{}".format("ราคาทั้งหมด {}".format(
                     str(sum(list(data['รายการที่สั่ง'].values())))).center(20, " ")))
                 self.update_empty_hnode(res_table, self.bin_heap.head)
+                self.linkList.delete(res_table)
             except:
                 print('กรุณากรอกลำดับโต๊ะที่อยู่ในลิสต์')
 

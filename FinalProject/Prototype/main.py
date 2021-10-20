@@ -21,7 +21,7 @@ from kivy.properties import StringProperty, NumericProperty
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.label import Label
 import kivy
-
+print(int("-1"))
 
 for i in ['introScreen', 'Queue_table(table)', 'Queue_table(menu)']:
     Builder.load_file(f"{i}.kv")
@@ -43,7 +43,10 @@ class TableCard(MDCard, ButtonBehavior):
         super(TableCard, self).__init__(**kw)
         self.root = root
         self.container_manager = self.root.ids.container_manager
-
+        self.checkbill_view = self.root.ids.queuetable.ids.checkbill_view
+        
+    def to_check_bill_sc(self):
+        self.root
     def add_cus_onpress(self, dialog, container, text_event, btn):
         if text_event.text.isnumeric():
             if 0 < int(text_event.text) <= 6:
@@ -142,8 +145,20 @@ class MenuScreen(MDScreen):
         self.root = root
         self.name = 'menu_screen'
         self.container_manager = self.root.ids.container_manager
-        for i in range(1, 10):
-            self.ids.menu_view.add_widget(MenuCard(menu_name='menu', value=i))
+        self.menu = {"Espressso":35,
+                     "Cappuccino":45,
+                     "Latte":50,
+                     "Mocha":50,
+                     "Tea":40,
+                     "Green Tea(Milk)":40,
+                     "Tea(milk)":40,
+                     "Lemon tea":45,
+                     "Black Tea":35,
+                     "Dark Chocolate":55,
+                     "Fresh milk":35,
+                     "Chocotate":40}
+        for name,value in self.menu.items():
+            self.ids.menu_view.add_widget(MenuCard(menu_name=name, value=value))
         self.check_box_id = [
             i.ids.check_box for i in self.ids.menu_view.children]
 

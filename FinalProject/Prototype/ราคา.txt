@@ -1,14 +1,14 @@
-àÁ¹Ù 
+ï¿½ï¿½ï¿½ï¿½ 
     Hot    ICED   FRAPPE
-àÍÊà»ÃÊâ« (Espressso) 			 35	 55      60 
-¤Ò»ÙªÔâ¹ (Cappuccino)			 45	 60 	 65 
-ÅÒàµé (Latte) 					 50	 65      70 
-·Í¤¤èÒ (Mocha) 				 50	 65      70 
-ªÒ (Tea) 					 40 	  -	 - 
-ªÒà¢ÕÂÇ¹Á( Green Tea with Milk) 		 40	 50      55
-ªÒ¹Á (Tea with mik) 			 40	 45      50 
-ªÒÁÐ¹ÒÇ (Lemon tea) 			  - 	 45	 – 
-ªÒ´Ó(BIack Tea) 				  - 	 35 	 – 
-¤ÒÃì¤ªçÍ¡â¡áÅµ (Dark Chocolate) 		  -	 55	 – 
-¹ÁÊ´ (Fresh milk)				 35 	 45     50
- ªçÍ¡â¡áÅµ (Chocotate) 			 40 	 50 	55
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Espressso() 			 35	 55      60 
+ï¿½Ò»Ùªï¿½ï¿½ (Cappuccino)			 45	 60 	 65 
+ï¿½ï¿½ï¿½ï¿½ (Latte) 					 50	 65      70 
+ï¿½Í¤ï¿½ï¿½ï¿½ (Mocha) 				 50	 65      70 
+ï¿½ï¿½ (Tea) 					 40 	  -	 - 
+ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½( Green Tea with Milk) 		 40	 50      55
+ï¿½Ò¹ï¿½ (Tea with mik) 			 40	 45      50 
+ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ (Lemon tea) 			  - 	 45	 ï¿½ 
+ï¿½Ò´ï¿½(BIack Tea) 				  - 	 35 	 ï¿½ 
+ï¿½ï¿½ï¿½ì¤ªï¿½Í¡ï¿½ï¿½Åµ (Dark Chocolate) 		  -	 55	 ï¿½ 
+ï¿½ï¿½Ê´ (Fresh milk)				 35 	 45     50
+ ï¿½ï¿½Í¡ï¿½ï¿½Åµ (Chocotate) 			 40 	 50 	55

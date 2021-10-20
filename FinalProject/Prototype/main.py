@@ -47,7 +47,11 @@ class TableCard(MDCard, ButtonBehavior):
         self.table_view = self.root.ids.queuetable.ids.table_view
         
     def to_check_bill_sc(self):
-        self.table_view.remove_widget
+        self.bind(on_press=lambda *s:s)
+        self.table_view.remove_widget(self)
+        self.checkbill_view.add_widget(self)
+        
+        
     def add_cus_onpress(self, dialog, container, text_event, btn):
         if text_event.text.isnumeric():
             if 0 < int(text_event.text) <= 6:
@@ -56,7 +60,6 @@ class TableCard(MDCard, ButtonBehavior):
                 self.container_manager.transition.duration = 0.2
                 self.container_manager.current = 'menu_screen'
                 dialog.dismiss()
-
             elif int(text_event.text) <= 0:
                 container.ids.show_error_text.text = 'ต้องมากกว่า 0'
             else:

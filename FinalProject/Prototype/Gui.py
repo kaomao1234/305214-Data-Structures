@@ -119,11 +119,9 @@ class CafeHeap:
                     return
             else:
                 print('โต๊ะ {} เต็มแล้ว'.format(res_table).center(50))
-                self.run()
         except:
             print('โต๊ะนี้ไม่มีอยู่ในลิสต์'.center(50))
-            self.run()
-
+            
     def checkbill(self):
         bill_sheet = pt()
         recipe_sheet = pt()
@@ -157,19 +155,19 @@ class CafeHeap:
 
     def run(self):
         while True:
-            # os.system('cls||clear')
             choice = int(
-                input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง\n --> ".format("-"*50)))
+                input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง\n4.พิมพ์ 4 เพื่อหยุดโปรแกรม \n --> ".format("-"*20)))
             if choice == 1:
                 self.res_fuction()
             elif choice == 2:
                 self.checkbill()
-                pass
             elif choice == 3:
                 self.refresh_run()
+            elif choice == 4:
+                print("หยุดการทำงาน".center(20," "))
+                break
             else:
                 print('กรุณาเลือกตัวเลือก')
 
 
-obj = CafeHeap()
-obj.run()
+CafeHeap()

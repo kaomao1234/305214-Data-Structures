@@ -79,6 +79,7 @@ class BinaryHeap:
         lst = []
         self.__get_node_info__(self.head, data,lst)
         return lst[0]
+    
     def __get_node_info__(self,node: Hnode,data,lst):
         if node!= None:
             if node.data == data:

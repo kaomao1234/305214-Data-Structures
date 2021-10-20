@@ -2,32 +2,38 @@ from prettytable import PrettyTable as pt
 import random
 from threading import Thread
 import os
-from backen_code import Hnode, BinaryHeap,LinkedList
+from backen_code import Hnode, BinaryHeap, LinkedList
 from pprint import pprint
 
 
 class CafeHeap:
     def __init__(self):
+        self.menu = {"1.Espressso": 35,
+                     "2.Cappuccino": 45,
+                     "3.Latte": 50,
+                     "4.Mocha": 50,
+                     "5.Tea": 40,
+                     "6.Green Tea(Milk)": 40,
+                     "7.Tea(milk)": 40,
+                     "8.Lemon tea": 45,
+                     "9.Black Tea": 35,
+                     "10.Dark Chocolate": 55,
+                     "11.Fresh milk": 35,
+                     "12.Chocotate": 40}
+        self.list_key_menu = list(self.menu.keys())
         self.refresh_run()
 
     def refresh_run(self):
-        self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
-        while self.num_of_table>=20 or self.num_of_table<1:
-            print("ระบุได้ไม่เกิน 20 ตัว")
-            self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
-        self.menu = {"1.Espressso":35,
-                     "2.Cappuccino":45,
-                     "3.Latte":50,
-                     "4.Mocha":50,
-                     "5.Tea":40,
-                     "6.Green Tea(Milk)":40,
-                     "7.Tea(milk)":40,
-                     "8.Lemon tea":45,
-                     "9.Black Tea":35,
-                     "10.Dark Chocolate":55,
-                     "11.Fresh milk":35,
-                     "12.Chocotate":40}
-        self.list_key_menu = list(self.menu.keys())
+        while True:
+            try:
+                self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
+            except:
+                print("----> ใส่ได้เฉพาะตัวเลขเท่านั้น <----")
+            else:
+                if self.num_of_table >= 20 or self.num_of_table < 1:
+                    print("----> ระบุได้ไม่เกิน 20 ตัว <----")
+                else:
+                    break
         self.bin_heap = BinaryHeap()
         self.linkList = LinkedList()
         self.table_detail = {}
@@ -94,11 +100,16 @@ class CafeHeap:
                 free_table_sheet.add_row(["โต๊ะ {}".format(i), "ว่าง"])
         print(free_table_sheet)
 
-    def choose_menu(self, cus_info: dict, table_no: int):
-        cus_info[table_no]['จำนวนคน'] = int(input('กรูณาระบุจำนวนคน : '))
-        while cus_info[table_no]['จำนวนคน'] > 6:
-            print("ระบุจำนวนได้ไม่เกิน 6.")
+    def config_num_of_cus(self, cus_info: dict, table_no: int):
+        while True:
             cus_info[table_no]['จำนวนคน'] = int(input('กรูณาระบุจำนวนคน : '))
+            if cus_info[table_no]['จำนวนคน'] > 6:
+                print("ระบุจำนวนได้ไม่เกิน 6.")
+            else:
+                break
+
+    def choose_menu(self, cus_info: dict, table_no: int):
+        self.config_num_of_cus(cus_info,table_no)
         print(self.sheet_menu)
         print("กรุณาเลือกเมนู\nหากเสร็จสิ้นแล้วพิมพ์ y:")
         while True:
@@ -107,7 +118,7 @@ class CafeHeap:
                 break
             elif choose_menu.isnumeric() == False:
                 print('กรุณากรอกข้อมูลให้ถูกต้อง')
-            elif int(choose_menu) > 12 or int(choose_menu)<=0:
+            elif int(choose_menu) > 12 or int(choose_menu) <= 0:
                 print("เมนูนี้ไม่มีอยู่ในลิสต์ {}".format(choose_menu))
             elif int(choose_menu) <= 12:
                 menu = self.list_key_menu[int(choose_menu)-1]
@@ -115,8 +126,8 @@ class CafeHeap:
 
     def res_fuction(self):
         self.disp_free_table()
-        res_table = int(input("ระบุโต๊ะที่ต้องการ : "))
         try:
+            res_table = int(input("ระบุโต๊ะที่ต้องการ : "))
             proof = []
             self.check_freeHnode(self.bin_heap.head, res_table, proof)
             if True in proof:
@@ -132,55 +143,74 @@ class CafeHeap:
                 elif acception in ['n', 'N']:
                     return
             else:
-                print('โต๊ะ {} เต็มแล้ว'.format(res_table).center(50))
+                print('! โต๊ะ {} เต็มแล้ว !'.format(res_table).center(20,'='))
         except:
-            print('โต๊ะนี้ไม่มีอยู่ในลิสต์'.center(50))
-            
-    def checkbill(self):
+            print('โต๊ะนี้ไม่มีอยู่ในลิสต์'.center(20,'='))
+        
+    def check_list_tableBill(self):
         bill_sheet = pt()
-        recipe_sheet = pt()
         bill_sheet.field_names = ["โต๊ะ", 'ราคาทั้งหมด']
-        recipe_sheet.field_names = ['ราการ', 'ราคา']
+        count = 0
         for i in range(1, self.num_of_table+1):
             data = self.bin_heap.get_node_info(i)
             if data[i]['สถานะ'] == 'ไม่ว่าง':
                 bill_sheet.add_row(["โต๊ะ {}".format(i), sum(
                     list(data[i]['รายการที่สั่ง'].values()))])
-        print(bill_sheet)
-        while True:
-            print("หากต้องการยกเลิกรายการ พิมพ์ N")
-            res_table = input('กรุณาระบุโต๊ะที่ต้องการเก็บเงิน : \n')
-            if res_table in ['N', 'n']:
-                break
-            res_table = int(res_table)
+                count+=1
+        if count == 0:
+            print("----> ไม่มีโต๊ะที่ถูกจอง <----")
+        else:
+            print(bill_sheet)
+        return count
+        
+        
+    def checkbill(self):
+        while self.check_list_tableBill()>0:
+            recipe_sheet = pt()
+            recipe_sheet.field_names = ['รายการ', 'ราคา']
+            print("----> หากต้องการยกเลิกรายการพิมพ์ N <----")
+            while True:
+                res_table = input('กรุณาระบุโต๊ะที่ต้องการเก็บเงิน : \n')
+                if res_table in ['N', 'n']:
+                    print("---> หยุดดำเนินการเช็คบิล <----")
+                    return
+                elif res_table.isnumeric():
+                    res_table = int(res_table)
+                    break
+                else:
+                    print("----> กรอกได้้เฉพาะตัวเลขเท่านั้น !!!! <----")
             try:
                 data = self.bin_heap.get_node_info(res_table)
                 data = data[res_table]
-                for i, v in data['รายการที่สั่ง'].items():
-                    recipe_sheet.add_row([i, v])
+                for menu, value in data['รายการที่สั่ง'].items():
+                    recipe_sheet.add_row([menu, value])
+                total_value = sum(list(data['รายการที่สั่ง'].values()))
                 print("{}".format("โต๊ะ {}".format(res_table).center(20, ' ')))
                 print(recipe_sheet)
-                print("{}".format("ราคาทั้งหมด {}".format(
-                    str(sum(list(data['รายการที่สั่ง'].values())))).center(20, " ")))
+                print("ราคาทั้งหมด {}".format(total_value).center(20))
                 self.update_empty_hnode(res_table, self.bin_heap.head)
                 self.linkList.delete(res_table)
             except:
-                print('กรุณากรอกลำดับโต๊ะที่อยู่ในลิสต์')
+                print('----> โต๊ะ {} ไม่อยู่ในลิสต์ <----'.format(res_table))
 
     def run(self):
         while True:
-            choice = int(
-                input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง\n4.พิมพ์ 4 เพื่อหยุดโปรแกรม \n --> ".format("-"*20)))
-            if choice == 1:
-                self.res_fuction()
-            elif choice == 2:
-                self.checkbill()
-            elif choice == 3:
-                self.refresh_run()
-            elif choice == 4:
-                print("หยุดการทำงาน".center(20," "))
-                break
+            try:
+                choice = int(
+                    input("{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง\n4.พิมพ์ 4 เพื่อหยุดโปรแกรม \n --> ".format("-"*20)))
+            except:
+                print("---> พิมพ์เฉพาะตัวเลขเท่านั้น <---")
             else:
-                print('กรุณาเลือกตัวเลือก')
-
-CafeHeap()
+                if choice == 1:
+                    self.res_fuction()
+                elif choice == 2:
+                    self.checkbill()
+                elif choice == 3:
+                    self.refresh_run()
+                elif choice == 4:
+                    print("----> หยุดการทำงาน <-----".center(20, " "))
+                    break
+                else:
+                    print('----> กรุณาเลือกตัวเลือก <----')
+if __name__ == '__main__':
+    CafeHeap()

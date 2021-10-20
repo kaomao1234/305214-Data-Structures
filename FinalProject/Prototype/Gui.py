@@ -12,6 +12,9 @@ class CafeHeap:
 
     def refresh_run(self):
         self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
+        while self.num_of_table>=20 or self.num_of_table<1:
+            print("ระบุได้ไม่เกิน 20 ตัว")
+            self.num_of_table = int(input("กรุณาใส่จำนวนโต๊ะ : "))
         self.menu = {"1.Espressso":35,
                      "2.Cappuccino":45,
                      "3.Latte":50,

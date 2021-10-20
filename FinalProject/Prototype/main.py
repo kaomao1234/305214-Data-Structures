@@ -44,9 +44,10 @@ class TableCard(MDCard, ButtonBehavior):
         self.root = root
         self.container_manager = self.root.ids.container_manager
         self.checkbill_view = self.root.ids.queuetable.ids.checkbill_view
+        self.table_view = self.root.ids.queuetable.ids.table_view
         
     def to_check_bill_sc(self):
-        self.root
+        self.table_view.remove_widget
     def add_cus_onpress(self, dialog, container, text_event, btn):
         if text_event.text.isnumeric():
             if 0 < int(text_event.text) <= 6:

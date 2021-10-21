@@ -2,7 +2,7 @@ from threading import Thread
 
 from prettytable import PrettyTable as pt
 
-from backen_code import BinaryHeap, LinkedList
+from backen_code1 import BinaryHeap, LinkedList
 
 
 class CafeHeap:
@@ -39,7 +39,6 @@ class CafeHeap:
         for i in range(1, self.num_of_table + 1):
             self.table_detail[i] = 'ว่าง'
             self.bin_heap.insert(i)
-        self.pre_info_customers = {}
         self.sheet_menu = pt()
         self.sheet_table = pt()
         self.sheet_menu.field_names = ["Menu", "Value"]
@@ -65,6 +64,7 @@ class CafeHeap:
         if node != None:
             if node.data == data:
                 node.info[data]['สถานะ'] == 'ว่าง'
+                del node.info[data]['รายการที่สั่ง']
             self.update_empty_hnode(data, node.left)
             self.update_empty_hnode(data, node.right)
 
@@ -141,6 +141,8 @@ class CafeHeap:
                     self.linkList.add(res_table)
                 elif acception in ['n', 'N']:
                     return
+            elif res_table > self.num_of_table or res_table < 0:
+                print('โต๊ะนี้ไม่มีอยู่ในลิสต์'.center(20, '='))
             else:
                 print('! โต๊ะ {} เต็มแล้ว !'.format(res_table).center(20, '='))
         except:
@@ -149,18 +151,18 @@ class CafeHeap:
     def check_list_tableBill(self):
         bill_sheet = pt()
         bill_sheet.field_names = ["โต๊ะ", 'ราคาทั้งหมด']
-        count = 0
+        count_table = 0
         for i in range(1, self.num_of_table + 1):
             data = self.bin_heap.get_node_info(i)
             if data[i]['สถานะ'] == 'ไม่ว่าง':
                 bill_sheet.add_row(["โต๊ะ {}".format(i), sum(
                     list(data[i]['รายการที่สั่ง'].values()))])
-                count += 1
-        if count == 0:
+                count_table += 1
+        if count_table == 0:
             print("----> ไม่มีโต๊ะที่ถูกจอง <----")
         else:
             print(bill_sheet)
-        return count
+        return count_table
 
     def checkbill(self):
         while self.check_list_tableBill() > 0:
@@ -196,7 +198,7 @@ class CafeHeap:
             try:
                 choice = int(
                     input(
-                        "{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เลือกจำนวนโต๊ะอีกครั้ง\n4.พิมพ์ 4 เพื่อหยุดโปรแกรม \n --> ".format(
+                        "{}\n1.จองโต๊ะ\n2.เช็คบิล\n3.เริ่มโปรแกรมใหม่\n4.พิมพ์ 4 เพื่อหยุดโปรแกรม \n --> ".format(
                             "-" * 20)))
             except:
                 print("---> พิมพ์เฉพาะตัวเลขเท่านั้น <---")

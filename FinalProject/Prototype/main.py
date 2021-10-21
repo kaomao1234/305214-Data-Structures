@@ -21,8 +21,6 @@ from kivy.properties import StringProperty, NumericProperty
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.label import Label
 import kivy
-print(int("-1"))
-
 for i in ['introScreen', 'Queue_table(table)', 'Queue_table(menu)']:
     Builder.load_file(f"{i}.kv")
 
@@ -59,6 +57,7 @@ class TableCard(MDCard, ButtonBehavior):
                 self.container_manager.transition.direction = 'left'
                 self.container_manager.transition.duration = 0.2
                 self.container_manager.current = 'menu_screen'
+                self.to_check_bill_sc()
                 dialog.dismiss()
             elif int(text_event.text) <= 0:
                 container.ids.show_error_text.text = 'ต้องมากกว่า 0'
@@ -81,7 +80,8 @@ class MainScreen(MDBoxLayout):
     def __init__(self, **kw):
         super(MainScreen, self).__init__(**kw)
         self.md_bg_color = get_color_from_hex("#FFFFFF")
-
+        self.padding=[20, 20]
+        self.add_widget(Container(padding=[2, 2]))
 
 class Container(MDBoxLayout):
     def __init__(self, **kw):
@@ -112,6 +112,8 @@ class Container(MDBoxLayout):
         text_num_table = self.ids.text_num_table
         if text_num_table.text.isnumeric() and int(text_num_table.text) > 21:
             self.on_table_num_error("ใส่ได้ไม่เกิน 20 โต๊ะ")
+        if text_num_table.text.isnumeric() and int(text_num_table.text) <= 0:
+            self.on_table_num_error("ต้องมีจำนวนอย่างน้อย 1 ตัว")
         elif text_num_table.text.isnumeric() == False:
             self.on_table_num_error("ใส่ได้เฉพาะตัวเลขที่นั้้น")
         elif text_num_table.text.isnumeric() and int(text_num_table.text) < 21:
@@ -176,11 +178,9 @@ class MenuScreen(MDScreen):
 
 class CafeHeap(MDApp):
     def build(self):
-        mc = MainScreen(padding=[20, 20])
-        mc.add_widget(Container(padding=[2, 2]))
-        return mc
+        return MainScreen()
 
 
 if __name__ == '__main__':
-    os.system('cls')
+    # os.system('cls')
     CafeHeap().run()

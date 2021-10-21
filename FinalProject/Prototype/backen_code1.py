@@ -8,7 +8,7 @@ class Lnode:
 class Hnode:
     def __init__(self, data=None, left=None, right=None):
         self.data = data
-        self.info = {'สถานะ': 'ว่าง'}
+        self.info = {data:{'สถานะ':'ว่าง'}}
         self.left = left
         self.right = right
 
@@ -35,7 +35,7 @@ class LinkedList:
                 self.head = self.head.next
             else:
                 self.__delete__(self.head, key)
-
+                
     def __delete__(self, node: Lnode, key):
         # [setattr(node,'next',node.next.next) if node.next.data == key else self.__delete__(node.next,key)]
         if node.next.data == key:
@@ -60,9 +60,6 @@ class LinkedList:
             c += 1
         return self.__count_node__(node.next, key, c)
 
-    def reset_node(self):
-        self.head = None
-
 
 class BinaryHeap:
     def __init__(self, head=None):
@@ -78,22 +75,16 @@ class BinaryHeap:
             return self.way_arrow(plot_point, list_of_direct)
         else:
             return list_of_direct[::-1]
-
-    def full_stat(self, data):
-        self._full_stat_(self.head,data)
-
-    def get_node_info(self, data):
+    def get_node_info(self,data):
         lst = []
-        self.__get_node_info__(self.head, data, lst)
+        self.__get_node_info__(self.head, data,lst)
         return lst[0]
-
-    def __get_node_info__(self, node: Hnode, data, lst):
-        if node != None:
+    def __get_node_info__(self,node: Hnode,data,lst):
+        if node!= None:
             if node.data == data:
                 lst.append(node.info)
-            self.__get_node_info__(node.left, data, lst)
+            self.__get_node_info__(node.left,data,lst)
             self.__get_node_info__(node.right, data, lst)
-
     def insert(self, data):
         if self.head == None:
             self.head = Hnode(data)
@@ -131,8 +122,7 @@ class BinaryHeap:
                 proof.append(True)
             self.__search__(node.left, key, proof)
             self.__search__(node.right, key, proof)
-
-    def __del_last_node__(self, node: Hnode, idx=1):
+    def __del_last_node__(self,node:Hnode,idx=1):
         get_plot_direction = self.way_arrow()
         if idx == len(get_plot_direction):
             temp = ''
@@ -145,42 +135,21 @@ class BinaryHeap:
             return temp
         else:
             path_sym = get_plot_direction[idx]
-            if path_sym % 2 == 0:
-                return self.__del_last_node__(node.left, idx+1)
+            if path_sym %2 ==0:
+                return self.__del_last_node__(node.left,idx+1)
             else:
-                return self.__del_last_node__(node.right, idx+1)
+                return self.__del_last_node__(node.right,idx+1)
 
-    def __delete(self, node, key):
+    def __delete(self, node,key):
         if node != None:
             if node.data == key:
                 node.data = self.__del_last_node__(self.head)
             else:
                 self.__delete(node.left, key)
                 self.__delete(node.right, key)
-
-    def update_info_node(self, data, info: dict):
-        self._update_info_node_(self.head, data, info)
-
-    def delete(self, key):
+    
+    def delete(self,key):
         self.__delete(self.head, key)
-
-    def reset_node(self):
-        self.head = None
-        self.path_value = 0
-
-    def _full_stat_(self, node, data):
-        if node != None:
-            if node.data == data:
-                node.info['สถานะ'] = 'ไม่ว่าง'
-            self._full_stat_(node.left, data)
-            self._full_stat_(node.right, data)
-
-    def _update_info_node_(self, node, data, info: dict):
-        if node != None:
-            if node.data == data:
-                node.info.update(info)
-            self._update_info_node_(node.left, data, info)
-            self._update_info_node_(node.right, data, info)
 # obj = BinaryHeap()
 # for i in range(0, 10):
 #     obj.insert(i)

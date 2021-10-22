@@ -255,6 +255,7 @@ class CafeComRun:
         self.sheet_table.field_names = ["โต๊ะ", 'สถานะ']
         self.bin_heap.reset_node()
         self.linkList.reset_node()
+        self.create_table()
 
     def choice_screen(self):# todo ฟังก์ชันหน้าแรกของโรปแกรม
         self.input_tablefunc()

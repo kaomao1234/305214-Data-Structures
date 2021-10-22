@@ -29,14 +29,14 @@ class CafeComRun:
         self.sheet_menu.field_names = ["Menu", "Value"]
         self.sheet_table.field_names = ["โต๊ะ", 'สถานะ']
 
-    def display_table(self):# todo แสดงโต๊ะที่ว่าง
+    def display_table(self):  # todo แสดงโต๊ะที่ว่าง
         table = self.read_binary_heap()
         for no, stat in table.items():
             if stat['สถานะ'] == 'ว่าง':
                 self.sheet_table.add_row([no, stat['สถานะ']])
         print(self.sheet_table.get_string(title='ที่นั่งทั้งหมด'))
 
-    def display_billtable(self):# todo แสดงโต๊ะที่สามารถเก็บเงินได้
+    def display_billtable(self):  # todo แสดงโต๊ะที่สามารถเก็บเงินได้
         sheet_bill = pt()
         table = self.read_binary_heap()
         sheet_bill.field_names = ['โต๊ะ', 'ราคา']
@@ -55,7 +55,7 @@ class CafeComRun:
             print("----> ไม่มีโต๊ะที่ถูกจอง <----")
             return False
 
-    def check_minus_num(self, number):# todo ตรวจสอบจำนวนติดลบ
+    def check_minus_num(self, number):  # todo ตรวจสอบจำนวนติดลบ
         try:
             if int(number) < 0:
                 return True
@@ -70,18 +70,18 @@ class CafeComRun:
         for menu, value in self.menu.items():
             self.sheet_menu.add_row([menu, value])
 
-    def create_table(self):# todo กำหนดโต๊ะขึ้นมา
+    def create_table(self):  # todo กำหนดโต๊ะขึ้นมา
         for i in range(1, self.input_numtable+1):
             self.bin_heap.insert(i)
 
-    def read_binary_heap(self):# todo อ่านข้อมูลใน node
+    def read_binary_heap(self):  # todo อ่านข้อมูลใน node
         table = {}
         for i in range(1, self.input_numtable + 1):
             data = self.bin_heap.get_node_info(i)
             table.update({i: data})
         return table
 
-    def check_float_num(self, number):# todo ตรวจสอบจำนวนทศนิยม
+    def check_float_num(self, number):  # todo ตรวจสอบจำนวนทศนิยม
         num_float = float(number)
         num_int = int(num_float)
         if num_float - num_int > 0:
@@ -89,7 +89,7 @@ class CafeComRun:
         else:
             return False
 
-    def input_tablefunc(self):# todo ฟังก์ชันสำหรับ Input จำนวนโต๊ะ
+    def input_tablefunc(self):  # todo ฟังก์ชันสำหรับ Input จำนวนโต๊ะ
         while True:
             self.input_numtable = input("กรุณาใส่จำนวนโต๊ะ : ")
             if self.check_minus_num(self.input_numtable) == "str":
@@ -107,7 +107,8 @@ class CafeComRun:
                 else:
                     break
 
-    def input_numof_customer(self, customer_info: dict):# todo ฟังก์ชันสำหรับ Input จำนวนลูกค้า
+    # todo ฟังก์ชันสำหรับ Input จำนวนลูกค้า
+    def input_numof_customer(self, customer_info: dict):
         while True:
             customer_info['จำนวนคน'] = input("กรูณาระบุจำนวนคน : ")
             if self.check_minus_num(customer_info['จำนวนคน']) == True:
@@ -125,7 +126,7 @@ class CafeComRun:
                 else:
                     break
 
-    def acception_func(self):# todo ฟังก์ชันสำหรับ Input ตัวแปร acception 
+    def acception_func(self):  # todo ฟังก์ชันสำหรับ Input ตัวแปร acception
         while True:
             acception = input("กรุณายืนยันโต๊ะนี้\nYes(Y)/No(N) : ")
             if acception in ['y', 'Y']:
@@ -135,7 +136,8 @@ class CafeComRun:
             else:
                 print("----> กรอกเฉพาะ Y หรือ N เท่านั้น <----")
 
-    def num_menu_func(self, name_menu, customer_info):# todo ฟังก์ชันสำหรับ Input จำนวนสินค้า
+    # todo ฟังก์ชันสำหรับ Input จำนวนสินค้า
+    def num_menu_func(self, name_menu, customer_info):
         while True:
             print("หากไม่ต้องการให้กรอก 0")
             num_menu_var = input("{} จำนวน : ".format(name_menu))
@@ -157,7 +159,7 @@ class CafeComRun:
                         {name_menu: num_menu_var})
                     break
 
-    def choose_table(self):# todo ฟังก์ชันเลือกโต๊ะ
+    def choose_table(self):  # todo ฟังก์ชันเลือกโต๊ะ
         self.display_table()
         table_info = self.read_binary_heap()
         choose_table_var = input("ระบุโต๊ะที่ต้องการ : ")
@@ -185,7 +187,7 @@ class CafeComRun:
                 elif acception_var == 'n':
                     return
 
-    def choose_menu(self, customer_info: dict):# todo ฟังก์ชันเลือกเมนู
+    def choose_menu(self, customer_info: dict):  # todo ฟังก์ชันเลือกเมนู
         self.config_menu()
         self.input_numof_customer(customer_info)
         print(self.sheet_menu)
@@ -208,7 +210,7 @@ class CafeComRun:
                     self.num_menu_func(
                         self.number_map_menu[input_menu], customer_info)
 
-    def checkbill(self):# todo ฟังก์ชันเช็คบิล
+    def checkbill(self):  # todo ฟังก์ชันเช็คบิล
         while True:
             if self.display_billtable() == False:
                 break
@@ -233,7 +235,7 @@ class CafeComRun:
             else:
                 print("----> ไม่พบตัวเลือก {} <----".format(choose_table))
 
-    def display_recipe(self, table_idx):# todo ฟังก์ชันแสดงใบเสร็จรับเงิน
+    def display_recipe(self, table_idx):  # todo ฟังก์ชันแสดงใบเสร็จรับเงิน
         recipe_sheet = pt()
         recipe_sheet.field_names = ['รายการ', 'จำนวน', 'ราคา']
         data = self.bin_heap.get_node_info(table_idx)
@@ -247,7 +249,7 @@ class CafeComRun:
             table_idx, {'สถานะ': 'ว่าง', 'รายการที่สั่ง': None})
         self.linkList.delete(table_idx)
 
-    def reset_pro(self):# todo ฟังก์ชันตั้งต่าโปรแกรมใหม่
+    def reset_pro(self):  # todo ฟังก์ชันตั้งต่าโปรแกรมใหม่
         self.input_tablefunc()
         self.sheet_menu = pt()
         self.sheet_table = pt()
@@ -257,7 +259,7 @@ class CafeComRun:
         self.linkList.reset_node()
         self.create_table()
 
-    def choice_screen(self):# todo ฟังก์ชันหน้าแรกของโรปแกรม
+    def choice_screen(self):  # todo ฟังก์ชันหน้าแรกของโรปแกรม
         self.input_tablefunc()
         self.create_table()
         while True:

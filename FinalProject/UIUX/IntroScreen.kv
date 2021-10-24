@@ -1,0 +1,53 @@
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+<IntroScreen@MDScreen>:
+    sukumvit_font:'font/SukhumvitSet-Medium'
+    black:get_color_from_hex("#000000")
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding:[30,20]
+        MDBoxLayout:
+            orientation: 'vertical'
+            canvas:
+                Color:
+                    rgba: get_color_from_hex("#000000")
+                Line:
+                    width: 1
+                    rectangle: self.x, self.y, self.width, self.height
+            MDLabel:
+                size_hint_y:None
+                text: 'CafeHeap'
+                halign:'center'
+                theme_text_color:'Custom'
+                text_color:root.black
+                font_style:'H3'
+                font_name: root.sukumvit_font
+            MDLabel:
+                size_hint_y:None
+                text: 'กรุณาระบุจำนวนโต๊ะ'
+                halign:'center'
+                theme_text_color:'Custom'
+                text_color:root.black
+                font_style:'H6'
+                font_name: root.sukumvit_font
+            AnchorLayout:
+                anchor_x: 'center'
+                size_hint_y:None
+                MDTextField:
+                    id:field_tables
+                    helper_text: "Text is always here"
+                    helper_text_mode: "persistent"
+                    line_color_normal:root.black
+                    line_color_focus:root.black
+                    width:200
+                    size_hint_x:None
+            AnchorLayout:
+                anchor_x: 'center'
+                MDRoundFlatButton:
+                    text: "ตกลง"
+                    text_color: root.black
+                    line_color:root.black
+                    font_name:root.sukumvit_font
+                    size_hint: None, None
+                    -height:40
+                    -width:200
+	

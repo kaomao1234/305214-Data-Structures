@@ -69,7 +69,7 @@ class BinaryHeap:
         self.head = head
         self.path_value = 0
 
-    def way_arrow(self, plot_point=None, list_of_direct=None):
+    def way_arrow(self, plot_point=None, list_of_direct=None):#todo กำหนดเส้นทางของNode
         if plot_point == None and list_of_direct == None:
             return self.way_arrow(self.path_value, [])
         elif plot_point >= 2:
@@ -102,6 +102,7 @@ class BinaryHeap:
             if self.search(data) == False:
                 self.path_value += 1
                 self.__insert__(self.head, data)
+                print(data,'==>',self.way_arrow())
             else:
                 print("{} is already in heap.".format(data))
 
@@ -181,10 +182,7 @@ class BinaryHeap:
                 node.info.update(info)
             self._update_info_node_(node.left, data, info)
             self._update_info_node_(node.right, data, info)
-# obj = BinaryHeap()
-# for i in range(0, 10):
-#     obj.insert(i)
-# obj.head.display()
-# pprint(obj.delete(8))
-# obj.head.display()
-# # pprint()
+obj = BinaryHeap()
+for i in range(0, 10):
+    obj.insert(i)
+# pprint()

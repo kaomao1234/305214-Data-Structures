@@ -78,6 +78,7 @@ class BHeap:
             if self.root == None:
                 self.root = Node(data)
             else:
+                print(data,'==>',self.direction(),'\n','route : ',self.last_route)
                 self.__insert(self.root, data)
 
     def direction(self, c=None, k=None):
@@ -122,6 +123,6 @@ class BHeap:
 
 
 ht = BHeap()
-for i in range(0, 20):
+for i in range(1, 9):
     ht.insert(i)
 ht.root.display()

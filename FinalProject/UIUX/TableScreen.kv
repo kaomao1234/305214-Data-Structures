@@ -1,0 +1,97 @@
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+<TableScreen@MDScreen>:
+    sukumvit_font:'font/SukhumvitSet-Medium'
+    black:get_color_from_hex("#000000")
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding:[30,20]
+        MDBoxLayout:
+            orientation: 'vertical'
+            canvas:
+                Color:
+                    rgba: get_color_from_hex("#000000")
+                Line:
+                    width: 1
+                    rectangle: self.x, self.y, self.width, self.height
+            MDBoxLayout:
+                orientation:'horizontal'
+                size_hint_y:None
+                height:52
+                canvas:
+                    Color:
+                        rgba: get_color_from_hex("#000000")
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width,0
+                MDLabel:
+                    size_hint_y:None
+                    -height:52
+                    text: 'CafeHeap'
+                    halign:'center'
+                    theme_text_color:'Custom'
+                    text_color:root.black
+                    font_style:'H6'
+                    font_name: root.sukumvit_font
+            ScreenManager:
+                id:table_manager
+                MDScreen:
+                    name:'screen_1'
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        padding:[10,10]
+                        ScrollView:
+                            MDList:
+                                TwoLineAvatarIconListItem:
+                                    text: "Table 3"
+                                    secondary_text: "This table can accommodate 6 seats."
+                                    IconLeftWidgetWithoutTouch:
+                                        icon: "food-fork-drink"
+                                    IconRightWidget:
+                                        icon: "plus"
+                                    IconRightWidget:
+                                        icon: "minus"
+                                    
+                MDScreen:
+                    name:'screen_2'
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        padding:[10,10]
+                        # TwoLineIconListItem:
+                        #     text: "Two-line item with avatar"
+                        #     secondary_text: "Secondary text here"
+                        #     IconLeftWidget:
+                        #         icon: "food"
+            MDBoxLayout:
+                orientation: 'horizontal'
+                size_hint_y:None
+                height:50
+                canvas:
+                    Color:
+                        rgba: get_color_from_hex("#000000")
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width,50
+                AnchorLayout:
+                    anchor_x: 'center'
+                    MDFlatButton:
+                        text:'จองโต๊ะ'
+                        font_size:20
+                        theme_text_color: "Custom"
+                        text_color:root.black
+                        font_name:root.sukumvit_font
+                        on_press:
+                            root.ids.table_manager.transition.direction = 'left'
+                            root.ids.table_manager.transition.duration = 0.2
+                            root.ids.table_manager.transition.current = 'screen_1'
+                AnchorLayout:
+                    anchor_x: 'center'
+                    MDFlatButton:
+                        text:'เช็คบิล'
+                        font_size:20
+                        theme_text_color: "Custom"
+                        text_color:root.black
+                        font_name:root.sukumvit_font
+                        on_press:
+                            root.ids.table_manager.transition.direction = 'right'
+                            root.ids.table_manager.transition.duration = 0.2
+                            root.ids.table_manager.transition.current = 'screen_2'

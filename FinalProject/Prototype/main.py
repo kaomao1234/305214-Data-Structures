@@ -12,6 +12,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivymd.app import MDApp
 from functools import partial
 from kivymd.uix.textfield import MDTextField
+from kivymd.uix.list import TwoLineAvatarIconListItem,IRightBodyTouch
 from kivy.lang import Builder
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.screen import MDScreen
@@ -21,20 +22,21 @@ from kivy.properties import StringProperty, NumericProperty
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.label import Label
 import kivy
-for i in ['introScreen', 'Queue_table(table)', 'Queue_table(menu)']:
+for i in ['module','introScreen', 'Queue_table(table)', 'Queue_table(menu)']:
     Builder.load_file(f"{i}.kv")
 
 
 class Num_customer(MDBoxLayout):
     pass
 
-
+class P(MDBoxLayout,IRightBodyTouch):
+    pass
 class MenuCard(MDCard):
     menu_name = StringProperty()
     value = NumericProperty()
 
 
-class TableCard(MDCard, ButtonBehavior):
+class TableCard(TwoLineAvatarIconListItem):
     num_table = NumericProperty()
 
     def __init__(self, root, **kw):
@@ -50,30 +52,30 @@ class TableCard(MDCard, ButtonBehavior):
         self.checkbill_view.add_widget(self)
         
         
-    def add_cus_onpress(self, dialog, container, text_event, btn):
-        if text_event.text.isnumeric():
-            if 0 < int(text_event.text) <= 6:
-                self.ids.show_num_cus.text = '{}/6'.format(text_event.text)
-                self.container_manager.transition.direction = 'left'
-                self.container_manager.transition.duration = 0.2
-                self.container_manager.current = 'menu_screen'
-                self.to_check_bill_sc()
-                dialog.dismiss()
-            elif int(text_event.text) <= 0:
-                container.ids.show_error_text.text = 'ต้องมากกว่า 0'
-            else:
-                container.ids.show_error_text.text = 'เพิ่มได้ไม่เกิน 6 คน'
-        else:
-            container.ids.show_error_text.text = 'ต้องใส่ตัวเลขเท่านั้น'
+    # def add_cus_onpress(self, dialog, container, text_event, btn):
+    #     if text_event.text.isnumeric():
+    #         if 0 < int(text_event.text) <= 6:
+    #             self.ids.show_num_cus.text = '{}/6'.format(text_event.text)
+    #             self.container_manager.transition.direction = 'left'
+    #             self.container_manager.transition.duration = 0.2
+    #             self.container_manager.current = 'menu_screen'
+    #             self.to_check_bill_sc()
+    #             dialog.dismiss()
+    #         elif int(text_event.text) <= 0:
+    #             container.ids.show_error_text.text = 'ต้องมากกว่า 0'
+    #         else:
+    #             container.ids.show_error_text.text = 'เพิ่มได้ไม่เกิน 6 คน'
+    #     else:
+    #         container.ids.show_error_text.text = 'ต้องใส่ตัวเลขเท่านั้น'
 
-    def on_focus(self):
-        content = Num_customer()
-        dialog = MDDialog(title="Add number of customer.", radius=[20, 7, 20, 7],
-                          type='custom', content_cls=content)
-        content.ids.cancel_btn.bind(on_press=lambda *s: dialog.dismiss())
-        content.ids.ok_btn.bind(on_press=partial(
-            self.add_cus_onpress, dialog, content, content.ids.num_field))
-        dialog.open()
+    # def on_focus(self):
+    #     content = Num_customer()
+    #     dialog = MDDialog(title="Add number of customer.", radius=[20, 7, 20, 7],
+    #                       type='custom', content_cls=content)
+    #     content.ids.cancel_btn.bind(on_press=lambda *s: dialog.dismiss())
+    #     content.ids.ok_btn.bind(on_press=partial(
+    #         self.add_cus_onpress, dialog, content, content.ids.num_field))
+    #     dialog.open()
 
 
 class MainScreen(MDBoxLayout):
@@ -81,7 +83,7 @@ class MainScreen(MDBoxLayout):
         super(MainScreen, self).__init__(**kw)
         self.md_bg_color = get_color_from_hex("#FFFFFF")
         self.padding=[20, 20]
-        self.add_widget(Container(padding=[2, 2]))
+        self.add_widget()
 
 class Container(MDBoxLayout):
     def __init__(self, **kw):
@@ -91,7 +93,7 @@ class Container(MDBoxLayout):
         self.add_layout()
 
     def on_table_num_error(self, text: str):
-        content = MDBoxLayout(orientation='vertical', size_hint_y=None)
+        content = MDBoxLayout(orientation='vertical', size_hint=(None,None),size=(50,100))
         content.add_widget(Label(text=text,
                            font_name=self.my_font_name, markup=True, color=self.black, font_size=20))
         dialog = MDDialog(title="User error !!!",
@@ -178,7 +180,7 @@ class MenuScreen(MDScreen):
 
 class CafeHeap(MDApp):
     def build(self):
-        return MainScreen()
+        return Container(padding=[2, 2])
 
 
 if __name__ == '__main__':

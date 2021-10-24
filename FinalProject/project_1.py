@@ -3,7 +3,7 @@ from threading import Thread
 from prettytable import PrettyTable as pt
 
 from backen_code import BinaryHeap, LinkedList
-
+from pprint import pprint
 
 class CafeComRun:
     def __init__(self):
@@ -25,16 +25,16 @@ class CafeComRun:
         self.bin_heap = BinaryHeap()
         self.linkList = LinkedList()
         self.sheet_menu = pt()
-        self.sheet_table = pt()
         self.sheet_menu.field_names = ["Menu", "Value"]
-        self.sheet_table.field_names = ["โต๊ะ", 'สถานะ']
 
     def display_table(self):  # todo แสดงโต๊ะที่ว่าง
+        sheet_table = pt()
+        sheet_table.field_names = ["โต๊ะ", 'สถานะ']
         table = self.read_binary_heap()
         for no, stat in table.items():
             if stat['สถานะ'] == 'ว่าง':
-                self.sheet_table.add_row([no, stat['สถานะ']])
-        print(self.sheet_table.get_string(title='ที่นั่งทั้งหมด'))
+                sheet_table.add_row([no, stat['สถานะ']])
+        print(sheet_table.get_string(title='ที่นั่งทั้งหมด'))
 
     def display_billtable(self):  # todo แสดงโต๊ะที่สามารถเก็บเงินได้
         sheet_bill = pt()
@@ -252,9 +252,7 @@ class CafeComRun:
     def reset_pro(self):  # todo ฟังก์ชันตั้งต่าโปรแกรมใหม่
         self.input_tablefunc()
         self.sheet_menu = pt()
-        self.sheet_table = pt()
         self.sheet_menu.field_names = ["Menu", "Value"]
-        self.sheet_table.field_names = ["โต๊ะ", 'สถานะ']
         self.bin_heap.reset_node()
         self.linkList.reset_node()
         self.create_table()

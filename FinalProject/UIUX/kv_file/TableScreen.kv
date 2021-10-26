@@ -1,10 +1,15 @@
 #: import get_color_from_hex kivy.utils.get_color_from_hex
+#: import TableCard module.TableCard.TableCard
+#: import pprint pprint.pprint
 <TableScreen@MDScreen>:
     sukumvit_font:'font/SukhumvitSet-Medium'
+    name:'table_screen'
     black:get_color_from_hex("#000000")
+    white:get_color_from_hex("#FFFFFF")
+    no_color:get_color_from_hex("#FAFAFA")
     MDBoxLayout:
         orientation: 'vertical'
-        padding:[30,20]
+        padding:[20,20]
         MDBoxLayout:
             orientation: 'vertical'
             canvas:
@@ -13,25 +18,14 @@
                 Line:
                     width: 1
                     rectangle: self.x, self.y, self.width, self.height
-            MDBoxLayout:
-                orientation:'horizontal'
-                size_hint_y:None
-                height:52
-                canvas:
-                    Color:
-                        rgba: get_color_from_hex("#000000")
-                    Line:
-                        width: 1
-                        rectangle: self.x, self.y, self.width,0
-                MDLabel:
-                    size_hint_y:None
-                    -height:52
-                    text: 'CafeHeap'
-                    halign:'center'
-                    theme_text_color:'Custom'
-                    text_color:root.black
-                    font_style:'H6'
-                    font_name: root.sukumvit_font
+            MDToolbar:
+                md_bg_color:root.no_color
+                title: "CafeHeap"
+                left_action_items:[['arrow-collapse-left',lambda x : root.back_onPress()]]
+                specific_text_color:root.black
+            MDSeparator:
+                height: "1dp"
+                md_bg_color:root.black
             ScreenManager:
                 id:table_manager
                 MDScreen:
@@ -41,26 +35,18 @@
                         padding:[10,10]
                         ScrollView:
                             MDList:
-                                TwoLineAvatarIconListItem:
-                                    text: "Table 3"
-                                    secondary_text: "This table can accommodate 6 seats."
-                                    IconLeftWidgetWithoutTouch:
-                                        icon: "food-fork-drink"
-                                    IconRightWidget:
-                                        icon: "plus"
-                                    IconRightWidget:
-                                        icon: "minus"
-                                    
+                                spacing:10
+                                id:tablelst
+
                 MDScreen:
                     name:'screen_2'
                     MDBoxLayout:
                         orientation: 'vertical'
                         padding:[10,10]
-                        # TwoLineIconListItem:
-                        #     text: "Two-line item with avatar"
-                        #     secondary_text: "Secondary text here"
-                        #     IconLeftWidget:
-                        #         icon: "food"
+                        ScrollView:
+                            MDList:
+                                spacing:10
+                                id:billlst
             MDBoxLayout:
                 orientation: 'horizontal'
                 size_hint_y:None
@@ -80,9 +66,9 @@
                         text_color:root.black
                         font_name:root.sukumvit_font
                         on_press:
-                            root.ids.table_manager.transition.direction = 'left'
+                            root.ids.table_manager.transition.direction = 'right'
                             root.ids.table_manager.transition.duration = 0.2
-                            root.ids.table_manager.transition.current = 'screen_1'
+                            root.ids.table_manager.current = 'screen_1'
                 AnchorLayout:
                     anchor_x: 'center'
                     MDFlatButton:
@@ -92,6 +78,6 @@
                         text_color:root.black
                         font_name:root.sukumvit_font
                         on_press:
-                            root.ids.table_manager.transition.direction = 'right'
+                            root.ids.table_manager.transition.direction = 'left'
                             root.ids.table_manager.transition.duration = 0.2
-                            root.ids.table_manager.transition.current = 'screen_2'
+                            root.ids.table_manager.current = 'screen_2'

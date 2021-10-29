@@ -71,6 +71,7 @@ class HeapTree:
     def __init__(self):
         self.root = None
         self.order_node = 0
+        self.array = []
 
     def insert(self, data):
         if self.root == None:
@@ -79,10 +80,19 @@ class HeapTree:
         else:
             if self.search(data) == False:
                 self.order_node += 1
-                self.__max_insert(self.root, data)
+                self.__min_insert(self.root, data)
             else:
                 print("{} is already in heap.".format(data))
-
+    def remin_heap(self,list:list):
+        min_root = min(list)
+        while self.root.data != min_root:
+            self.min_reheap(self.root)
+        self.min_reheap(self.root)
+    def remax_heap(self,list:list):
+        max_root = max(list)
+        while self.root.data != max_root:
+            self.max_reheap(self.root)
+        self.max_reheap(self.root)
     def mark_traversal(self):
         idx_number = self.order_node
         route_pin = []
@@ -213,34 +223,75 @@ class HeapTree:
 
     def min_reheap(self, node: HeapNode):
         if node != None:
+            temp = node.data
             if self.isbinary(node) == True:
-                temp = node.data
                 if node.data > self.max_node(node.left, node.right).data:
                     get_node = self.min_node(node.left, node.right)
                     node.data = get_node.data
                     get_node.data = temp
                     self.min_reheap(get_node)
+                elif node.data > node.left.data:
+                    node.data = node.left.data
+                    node.left.data = temp
+                    self.min_reheap(node)
+                elif node.data > node.right.data:
+                    node.data = node.right.data
+                    node.right.data = temp
+                    self.min_reheap(node)
                 else:
                     self.min_reheap(node.left)
                     self.min_reheap(node.right)
             else:
-                if node.left != None and self.max_node(node, node.left) == node:
-                    temp = node.data
+                if node.left != None and node.right == None and node.data > node.left.data:
                     node.data = node.left.data
                     node.left.data = temp
-                elif node.right != None and self.max_node(node, node.right) == node:
-                    temp = node.data
+                elif node.right != None and node.left == None and node.data > node.right.data:
+                    node.data = node.right.data
+                    node.right.data = temp
+            
+    def max_reheap(self,node:HeapNode):
+        if node != None:
+            temp = node.data
+            if self.isbinary(node) == True:
+                if node.data < self.max_node(node.left,node.right).data:
+                    get_node = self.max_node(node.left,node.right)
+                    node.data = get_node.data
+                    get_node.data = temp
+                    self.max_reheap(get_node)
+                elif node.data < node.left.data:
+                    node.data = node.left.data
+                    node.left.data = temp
+                    self.max_reheap(node)
+                elif node.data < node.right.data:
+                    node.data = node.right.data
+                    node.right.data = temp
+                    self.max_reheap(node)
+                else:
+                    self.max_reheap(node.left)
+                    self.max_reheap(node.right)
+            else:
+                if node.left != None and node.right == None and node.data < node.left.data:
+                    node.data = node.left.data
+                    node.left.data = temp
+                elif node.right != None and node.left == None and node.data < node.right.data:
                     node.data = node.right.data
                     node.right.data = temp
 
 
-array = [10, 34, 24, 3, 66, 47, 18, 8, 26, 55, 82, 29, 32, 17, 6, 72]
+array = [64,21,31,59,29,96,14,9,8,7,6,5,4,3,2,1,0]
 # file = open(
 #     'C:/Users/borip/Documents/GitHub/305214-Data-Structures/treeData.txt', mode='r')
 # array = file.read().split(',')
 # array = list(map(int, array))
 # file.close()
-ht = HeapTree()
-for i in array:
-    ht.insert(i)
-ht.root.display()
+# ht = HeapTree()
+# for i in array:
+#     ht.insert(i)
+# ht.root.display()
+for j in range(0,10):
+    ht = HeapTree()
+    print('ลบ {}'.format(j).center(20,'-'))
+    for i in array:
+        ht.insert(i)
+    ht.delete(j)
+    ht.root.display()

@@ -1,7 +1,7 @@
 <CheckBillScreen@MDScreen>:
     sukumvit_font:'font/SukhumvitSet-Medium'
     black:get_color_from_hex("#000000")
-    table_no:''
+    name:'checkbill_screen'
     MDBoxLayout:
         orientation: 'vertical'
         padding:[20,20]
@@ -29,6 +29,7 @@
                         icon:'arrow-collapse-left'
                         theme_text_color: "Custom"
                         text_color:root.black
+                        on_press: root.back_click()
                 MDLabel:
                     size_hint_y:None
                     -height:52
@@ -97,7 +98,6 @@
                         MDLabel:
                             id:total
                             size_hint_y:None
-                            size_hint_x: None
                             size: self.texture_size
                             text: '0'
                             halign:'center'

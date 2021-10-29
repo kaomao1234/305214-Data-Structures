@@ -6,7 +6,7 @@
     name:'table_screen'
     black:get_color_from_hex("#000000")
     white:get_color_from_hex("#FFFFFF")
-    no_color:get_color_from_hex("#FAFAFA")
+    dr_white:get_color_from_hex("#FAFAFA")
     MDBoxLayout:
         orientation: 'vertical'
         padding:[20,20]
@@ -19,7 +19,7 @@
                     width: 1
                     rectangle: self.x, self.y, self.width, self.height
             MDToolbar:
-                md_bg_color:root.no_color
+                md_bg_color:root.dr_white
                 title: "CafeHeap"
                 left_action_items:[['arrow-collapse-left',lambda x : root.back_onPress()]]
                 specific_text_color:root.black
@@ -30,23 +30,36 @@
                 id:table_manager
                 MDScreen:
                     name:'screen_1'
-                    MDBoxLayout:
-                        orientation: 'vertical'
-                        padding:[10,10]
-                        ScrollView:
-                            MDList:
-                                spacing:10
-                                id:tablelst
+                    RecycleView:
+                        id:tablelst
+                        viewclass:'TableCard'
+                        RecycleBoxLayout:
+                            spacing: '10dp'
+                            orientation: 'vertical'
+                            default_size_hint: 1,None
+                            size_hint_y: None
+                            padding: [10,10]
+                            height: self.minimum_height
+                            default_size: None, 72
+
 
                 MDScreen:
                     name:'screen_2'
                     MDBoxLayout:
                         orientation: 'vertical'
                         padding:[10,10]
-                        ScrollView:
-                            MDList:
-                                spacing:10
-                                id:billlst
+                        RecycleView:
+                            id:billlst
+                            viewclass:'BillCard'
+                            RecycleBoxLayout:
+                                spacing: '10dp'
+                                orientation: 'vertical'
+                                default_size_hint: 1,None
+                                size_hint_y: None
+                                padding: [10,10]
+                                height: self.minimum_height
+                                default_size: None, 72
+
             MDBoxLayout:
                 orientation: 'horizontal'
                 size_hint_y:None
@@ -62,6 +75,8 @@
                     MDFlatButton:
                         text:'จองโต๊ะ'
                         font_size:20
+                        size_hint_x: None
+                        -width:self.parent.width
                         theme_text_color: "Custom"
                         text_color:root.black
                         font_name:root.sukumvit_font
@@ -74,6 +89,8 @@
                     MDFlatButton:
                         text:'เช็คบิล'
                         font_size:20
+                        size_hint_x: None
+                        -width:self.parent.width
                         theme_text_color: "Custom"
                         text_color:root.black
                         font_name:root.sukumvit_font

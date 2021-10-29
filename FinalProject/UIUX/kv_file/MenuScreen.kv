@@ -2,7 +2,8 @@
     name:'menu_screen'
     sukumvit_font:'font/SukhumvitSet-Medium'
     black:get_color_from_hex("#000000")
-    table_no:0
+    dr_white:get_color_from_hex("#FAFAFA")
+    red:(1.0, 0.0, 0.0, 1.0)
     MDBoxLayout:
         orientation: 'vertical'
         padding:[20,20]
@@ -114,6 +115,7 @@
                         rectangle: self.x, self.y, self.width,60
                 MDRoundFlatButton:
                     text: "ตกลง"
+                    on_press: root.on_press()
                     text_color: root.black
                     line_color:root.black
                     font_name:root.sukumvit_font

@@ -41,7 +41,7 @@ class MessageBar(BaseSnackbar):
     text_color = ListProperty(None)
     icon = StringProperty(None)
     font_size = NumericProperty("15sp")
-    border_color = ListProperty(None)
+    border_color = ListProperty([0,0,0,0])
     border_weight = NumericProperty(1)
     def __init__(self, **kwargs):
         super(MessageBar,self).__init__(**kwargs)

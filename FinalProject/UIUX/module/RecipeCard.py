@@ -2,14 +2,8 @@ from kivy.lang import Builder
 from kivy.properties import StringProperty,NumericProperty
 from kivymd.uix.boxlayout import MDBoxLayout
 # from kivymd.uix.screen import MDScreen
-class RecipeCard(MDBoxLayout):
-    menu_name = StringProperty()
-    count= NumericProperty()
-    price = NumericProperty()
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
 Builder.load_string("""
-<RecipeCard@MDBoxLayout>:
+<RecipeCard>:
     orientation: 'vertical'
     size_hint_y: None
     height: dp(30)
@@ -31,3 +25,9 @@ Builder.load_string("""
         height: "1dp"
         md_bg_color:(0,0,0,1)
 """)
+class RecipeCard(MDBoxLayout):
+    menu_name = StringProperty()
+    count= NumericProperty()
+    price = NumericProperty()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)

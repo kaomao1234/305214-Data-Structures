@@ -1,6 +1,7 @@
 <CheckBillScreen@MDScreen>:
     sukumvit_font:'font/SukhumvitSet-Medium'
     black:get_color_from_hex("#000000")
+    dr_white:get_color_from_hex("#FAFAFA")
     name:'checkbill_screen'
     MDBoxLayout:
         orientation: 'vertical'
@@ -93,7 +94,7 @@
                             valign:'center'
                             theme_text_color:'Custom'
                             text_color:root.black
-                            font_style:'Body1'
+                            font_style:'H5'
                             font_name: root.sukumvit_font
                         MDLabel:
                             id:total
@@ -104,7 +105,7 @@
                             valign:'center'
                             theme_text_color:'Custom'
                             text_color:root.black
-                            font_style:'Body1'
+                            font_style:'H5'
                             font_name: root.sukumvit_font
                         MDLabel:
                             size_hint_y:None
@@ -114,17 +115,18 @@
                             valign:'center'
                             theme_text_color:'Custom'
                             text_color:root.black
-                            font_style:'Body1'
+                            font_style:'H5'
                             font_name: root.sukumvit_font
             AnchorLayout:
                 anchor_x: 'center'
                 size_hint_y: None
                 MDRoundFlatButton:
-                    text: "ตกลง"
+                    text: "ยืนยัน"
                     text_color: root.black
                     line_color:root.black
                     font_name:root.sukumvit_font
                     font_style:'H6'
                     size_hint: None, None
+                    on_press:root.on_press()
                     -height:40
                     -width:250

@@ -1,18 +1,10 @@
 from kivy.lang import Builder
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.properties import StringProperty, NumericProperty,ObjectProperty, ListProperty, DictProperty
-from kivymd.app import MDApp
-class BillCard(MDBoxLayout):
-    number_table = NumericProperty()
-    press = ObjectProperty(lambda x :x )
-    number_cus = NumericProperty()
-    bill_info =  DictProperty(None)
-    def __init__(self, **kw):
-        super(BillCard, self).__init__(**kw)
-        
+from kivymd.app import MDApp        
 Builder.load_string("""
 <PressCard@TwoLineAvatarIconListItem+ButtonBehavior>
-<BillCard@MDBoxLayout>:
+<BillCard>:
     orientation:'vertical'
     adaptive_height:True
     red:get_color_from_hex("#FF0000")
@@ -33,3 +25,10 @@ Builder.load_string("""
         IconLeftWidgetWithoutTouch:
             icon:'food-fork-drink'
 """)
+class BillCard(MDBoxLayout):
+    number_table = NumericProperty()
+    press = ObjectProperty(lambda x :x )
+    number_cus = NumericProperty()
+    bill_info =  DictProperty(None)
+    def __init__(self, **kw):
+        super(BillCard, self).__init__(**kw)

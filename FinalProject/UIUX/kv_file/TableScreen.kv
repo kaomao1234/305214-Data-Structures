@@ -30,6 +30,11 @@
                 id:table_manager
                 MDScreen:
                     name:'screen_1'
+                    # ScrollView:
+                    #     MDList:
+                    #         id:tablelst
+                    #         spacing: '10dp'
+                    #         padding:[10,10]
                     RecycleView:
                         id:tablelst
                         viewclass:'TableCard'
@@ -41,6 +46,7 @@
                             padding: [10,10]
                             height: self.minimum_height
                             default_size: None, 72
+                            on_touch_move:print(self.children)
 
 
                 MDScreen:

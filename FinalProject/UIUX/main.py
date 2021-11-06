@@ -1,4 +1,8 @@
 from threading import Thread
+import os 
+from kivy import Config
+Config.set('graphics', 'multisamples', '0')
+os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import NumericProperty

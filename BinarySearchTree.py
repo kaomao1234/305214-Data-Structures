@@ -259,5 +259,6 @@ if __name__ == '__main__':
         bstree.create(i)
     bstree.delete(21)
     bstree.root.display()
+    print(bstree.printIn())
     bstree.find_level()
     bstree.all_node()

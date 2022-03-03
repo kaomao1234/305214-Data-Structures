@@ -81,7 +81,7 @@ class BSTree:
         self.__findlevel(self.root, lst_level)
         print("The highest level : ", lst_level[len(lst_level)-1])
         return lst_level[len(lst_level)-1]
-        
+
     def all_node(self):
         count = []
         self.__allOfNode(self.root, count)
@@ -119,19 +119,36 @@ class BSTree:
             print('Data is already in node.')
 
     def printIn(self):
-        lst = []
-        self.inorder(self.root, lst)
-        print(' '.join(lst))
+        inorder_lst = []
+        self.inorder(self.root, inorder_lst)
+        print(' '.join(inorder_lst))
 
     def printPost(self):
-        lst = []
-        self.postorder(self.root, lst)
-        print(' '.join(lst))
+        postorder_lst = []
+        self.postorder(self.root, postorder_lst)
+        print(' '.join(postorder_lst))
 
     def printPre(self):
-        lst = []
-        self.preorder(self.root, lst)
-        print(' '.join(lst))
+        preorder_lst = []
+        self.inorder(self.root, preorder_lst)
+        print(' '.join(preorder_lst))
+
+    def treesucceesor(self, data):
+        inorder_lst = []
+        self.inorder(self.root, inorder_lst)
+        return inorder_lst[inorder_lst.index(str(data))+1]
+
+    def treemaximum(self):
+        cur = self.root
+        while cur.right != None:
+            cur = cur.right
+        return cur.data
+
+    def treeminimum(self):
+        cur = self.root
+        while cur.left != None:
+            cur = cur.left
+        return cur.data
 
     def inorder(self, node, lst: list):
         if node != None:
@@ -250,15 +267,17 @@ class BSTree:
 
 if __name__ == '__main__':
     bstree = BSTree()
-    list_number = [64,21,31,59,9,96,4,11,3,32,35,68,90,100,6,2,1]
-    # file = open('treeData.txt', mode='r')
-    # list_number = file.read().split(',')
-    # list_number = list(map(int, list_number))
-    # file.close()
+    list_number = [64, 21, 31, 59, 9, 96, 4,
+                   11, 3, 32, 35, 68, 90, 100, 6, 2, 1]
     for i in list_number:
         bstree.create(i)
-    bstree.delete(21)
+        bstree.root.display()
+    bstree.delete(59)
     bstree.root.display()
-    print(bstree.printIn())
-    bstree.find_level()
-    bstree.all_node()
+    # bstree.printIn()
+    # print(bstree.treesucceesor(59))
+    # print(bstree.treemaximum())
+    # print(bstree.treeminimum())
+    # bstree.root.display()
+    # bstree.find_level()
+    # bstree.all_node()
